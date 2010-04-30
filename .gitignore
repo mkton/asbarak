@@ -1,2 +1,9 @@
 #toXlist
 toXlist/tmp/
+toXlist/db/
+toXlist/eclipse/
+
+#eclipse
+.classpath
+.project
+.settings/

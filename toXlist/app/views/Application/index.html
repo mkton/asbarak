@@ -1,4 +1,30 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:title /}
 
-#{welcome /}
+#{if elementLists}
+	#{list items:elementLists, as:'elementList'}
+		<div class="elementList">
+			<h3>
+				<a href="@{Application.showList(elementList.id)}">
+					${elementList.label}
+				</a>
+				&nbsp;
+				<a href="@{Application.deleteList(elementList.id)}">delete it</a>
+			</h3>
+		</div>
+	#{/list}
+#{/if}
+#{else}
+    <div class="empty">
+        There is currently no list here.
+    </div>
+#{/else}
+#{form @Application.createList()}
+	<p>
+		<label for="label">title :</label>
+		<input type="text" name="label" id="label"/>
+	</p>
+	<p>
+		<input type="submit" value="add list!":>
+	</p>
+#{/form}

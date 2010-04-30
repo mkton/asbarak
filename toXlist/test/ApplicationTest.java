@@ -14,4 +14,9 @@ public class ApplicationTest extends FunctionalTest {
         assertCharset("utf-8", response);
     }
     
+    @Test
+    public void testUserConnection(){
+    	
+    }
+    
 }

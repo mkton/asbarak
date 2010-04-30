@@ -1,0 +1,31 @@
+#{extends 'main.html' /}
+#{set title:list.label /}
+
+<a href="@{Application.index()}">
+	<< go back 
+</a>
+
+<h2>${list.label}</h2>
+
+#{list items:elements, as:'element'}
+	<div class="">
+		<h3>
+			<a href="@{Application.updateElement(element.id)}">${element.label}</a>
+			
+			#{if element.isDone }
+				done
+			#{/if}
+			<a href="@{Application.deleteElement(element.id)}">delete it</a>
+		</h3>
+	</div>
+#{/list}
+
+#{form @Application.addElement(list.id)}
+	<p>
+		<label for="label">title :</label>
+		<input type="text" name="label" id="label"/>
+	</p>
+	<p>
+		<input type="submit" value="add element !":>
+	</p>
+#{/form}
