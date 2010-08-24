@@ -2,6 +2,7 @@ package org.ow2.podcasti.model;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Date;
 
 public class Episode implements Serializable {
 
@@ -11,12 +12,15 @@ public class Episode implements Serializable {
 	public String title;
 	public URI location;
 	public Integer id;
+	public Date date;
 	
-	public Episode(String title, URI location, Integer feedId, Integer id){
+	public Episode(String title, Date date, URI location, 
+			Integer feedId, Integer id){
 		this.location = location;
 		this.title = title;
 		this.feedId = feedId;
 		this.id = id;
+		this.date = date;
 	}
 	
 	public String toString(){

@@ -21,4 +21,6 @@ public interface PodcastiUIService {
 	public HashSet<Episode> get3Last(Integer feedId);	
 	
 	public void playOnServer(URI podcastLocation);
+	
+	public void archive(Integer feedId, Integer episodeId);
 }

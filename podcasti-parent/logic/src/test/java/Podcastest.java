@@ -2,7 +2,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 
 import org.junit.After;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import org.objectweb.fractal.api.Component;
 import org.ow2.frascati.FraSCAti;
 import org.ow2.frascati.util.FrascatiException;
+import org.ow2.podcasti.archive.PodcastiArchiveImpl;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 import org.ow2.podcasti.ui.PodcastiUIService;
@@ -20,6 +23,9 @@ public class Podcastest {
 	public static String testFeed1 = "http://feeds2.feedburner.com/soulclap";
 	public static String testFeed3 = "http://radiofrance-podcast.net/podcast09/rss_14864.xml";
 	public static String testFeed2 = "http://jazzandbeyond.podbean.com/feed/";
+	
+	// path for archives
+	public static String archivesPath = "/tmp/podcasti-archives/";
 	
 	PodcastiUIService ui;
 	
@@ -108,5 +114,29 @@ public class Podcastest {
 			fail(e.getMessage());
 		} 
 	}
+	
+	@Test
+	public void archiveTest(){
+		try {
+			ui.addFeed(new URI(testFeed3));
+			Integer feedId = ((Feed) ui.getFeeds().iterator().next()).id;
+			Episode ep = ui.get3Last(feedId).iterator().next();
+			
+			ui.archive(feedId, ep.id);
+			
+			URI destination = 
+				PodcastiArchiveImpl.createDestination(archivesPath, ep);
+			
+			assertTrue(
+					(new File(destination)).getTotalSpace() ==
+						(new File(ep.location)).getTotalSpace()
+				);
+			
+		} catch (URISyntaxException e) {
+			fail(e.getMessage());
+		}
+		
+	}
+	
 	
 }

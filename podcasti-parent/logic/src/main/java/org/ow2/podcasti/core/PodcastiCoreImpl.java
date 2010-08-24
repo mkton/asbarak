@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import org.osoa.sca.annotations.Reference;
+import org.ow2.podcasti.archive.PodcastiArchiveService;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 import org.ow2.podcasti.model.PodcastiDBService;
@@ -25,12 +27,20 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 	@Reference(name="podcasti-db-reference")
 	PodcastiDBService db;
 	
+	@Reference(name="podcasti-archives-reference")
+	PodcastiArchiveService archive;
+	
 	//@Reference(name="audio-player")
 	
 
 	/*ublic HashMap<Integer, String> getFeeds() {
 		return db.getFeeds();
 	}*/
+	
+	// we save feed construction, in order to not rebuilt it each time
+	//TODO, create a timer for update it
+	private HashMap<Integer, HashSet<Episode>> episodes = 
+		new HashMap<Integer, HashSet<Episode>>();
 
 	public HashSet<Feed> getFeeds(){
 		return db.getFeeds();
@@ -72,7 +82,12 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 
 	public HashSet<Episode> get3Last(Integer feedId) {
 
-		HashSet<Episode> ret = new HashSet<Episode>();
+		// first, we try to find it in the save
+		HashSet<Episode> ret = episodes.get(feedId);
+		if (ret != null)
+			return ret;
+		else
+			ret = new HashSet<Episode>();
 
 		try {
 						
@@ -97,7 +112,11 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 							((SyndEnclosure) sEntry.getEnclosures()
 									.iterator().next()).getUrl());
 
-					ep = new Episode(sEntry.getTitle(), uri, feedId, i);
+					ep = new Episode(sEntry.getTitle(),
+							sEntry.getPublishedDate(),
+							uri,
+							feedId,
+							i);
 
 					ret.add(ep);
 					
@@ -125,11 +144,30 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 			e.printStackTrace();
 		}
 		
+		// we save it for next calls
+		episodes.put(feedId, ret);
+		
 		return ret;
 	}
 
 	public void playOnServer(URI podcastLocation) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void archive(Integer feedId, Integer episodeId) {
+		
+		HashSet<Episode> eps = get3Last(feedId);
+		
+		for (Episode episode : eps){
+			if (episode.id.equals(episodeId))
+				try {
+					archive.archivePodcast(episode);
+				} catch (URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 
 	}
 

@@ -17,6 +17,11 @@
     	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
     </reference>   
     
+    <reference name="podcasti-archives-reference">
+    	<interface.java 
+    		interface="org.ow2.podcasti.archive.PodcastiArchiveService"/>
+    </reference>
+          
   </component>
   
   <component name="podcasti-db">
@@ -31,7 +36,22 @@
     
   </component>
   
+   <component name="podcasti-archives">
+  
+  	<implementation.java class="org.ow2.podcasti.archive.PodcastiArchiveImpl" />
+  
+  	<property name="archives-path">/tmp/podcasti-archives/</property>
+  	
+  	<service name="podcasti-archives-service">
+  		<interface.java interface="org.ow2.podcasti.archive.PodcastiArchiveService" />
+  	</service>
+  	
+  </component>
+  
   <wire source="podcasti-core/podcasti-db-reference" 
   	target="podcasti-db/podcasti-db-service"/>
+
+  <wire source="podcasti-core/podcasti-archives-reference" 
+  	target="podcasti-archives/podcasti-archives-service"/>
   
 </composite>
