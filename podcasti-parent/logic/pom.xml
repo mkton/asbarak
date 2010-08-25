@@ -37,7 +37,7 @@
 	  <profile>
 		<id>podcasti</id>
 		<build>
-			<defaultGoal>org.ow2.frascati.mojo:frascati-launcher-plugin:1.3-SNAPSHOT:exec</defaultGoal>
+			<defaultGoal>org.ow2.frascati.mojo:frascati-launcher-plugin:1.3:exec</defaultGoal>
 			<plugins>
 				<plugin>
 					<groupId>org.ow2.frascati.mojo</groupId>
