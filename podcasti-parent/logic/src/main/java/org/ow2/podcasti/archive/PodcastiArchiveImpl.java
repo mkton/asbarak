@@ -3,7 +3,6 @@ package org.ow2.podcasti.archive;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
 
@@ -22,7 +21,7 @@ public class PodcastiArchiveImpl implements PodcastiArchiveService {
 			PodcastiArchiveImpl.createDestination(archivesPath, episode);
 		
 		// we start the copy thread
-		(new Archiver(episode.location, destination)).run();
+		(new Archiver(episode.location, destination)).start();
 		
 		return null;
 	}

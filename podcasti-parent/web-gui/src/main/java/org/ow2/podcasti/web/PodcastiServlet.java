@@ -34,7 +34,8 @@ public class PodcastiServlet implements Servlet {
 	 * Action parameters
 	 */
 	public static final String location = "location";
-	public static final String id = "id";
+	public static final String feedId = "feedId";
+	public static final String episodeId = "episodeId";
 	
 	/*
 	 * Attributes
@@ -62,12 +63,7 @@ public class PodcastiServlet implements Servlet {
 	public String getServletInfo() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public static String formatServletUrl(String action){
-		//FIXME beurk
-		return "/web-gui-0.0.1-SNAPSHOT" + "/podcasti?" + PodcastiServlet.action + "=" + action;
-	}
+	}	
 	
 	public HashMap<Feed, HashSet<Episode>> createList(){
 		HashMap<Feed, HashSet<Episode>> ret = new HashMap<Feed, HashSet<Episode>>(); 
@@ -85,6 +81,7 @@ public class PodcastiServlet implements Servlet {
 	public void init(ServletConfig arg0) throws ServletException {		
 		try {
 			System.setSecurityManager(new java.rmi.RMISecurityManager());			
+			//TODO parameterized it
 			this.ui = (PodcastiUIService) Naming.lookup("//localhost:1099/podcasti-rmi-service");
 		} catch (Exception e) {			
 			throw new ServletException(e);			
@@ -118,22 +115,33 @@ public class PodcastiServlet implements Servlet {
 		}
 		
 		if ( action.equals(PodcastiServlet.remove)) {
-			String feedId = request.getParameter(PodcastiServlet.id);			
+			String feedId = request.getParameter(PodcastiServlet.feedId);			
 			ui.removeFeed(Integer.parseInt(feedId));
+		}
+		
+		if ( action.equals(PodcastiServlet.archive)) {
+			String feedId = request.getParameter(PodcastiServlet.feedId);
+			String episodeId = request.getParameter(PodcastiServlet.episodeId);
+			ui.archive(Integer.parseInt(feedId), Integer.parseInt(episodeId));
 		}
 		
 		request.getRequestDispatcher("/podcasti?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
 	}
 	
-	public static String createFormAsLink(String action, String attr, String value, String label){
+	public static String createFormAsLink(String action, String label, HashMap<String, String> attrs){
 		String ret = "<form style=\"display:inline;\" action=\"podcasti\">";
 		
 		ret += "<input type=\"hidden\" name=\""; 
 		ret += PodcastiServlet.action;
 		ret += "\" value=\"" + action + "\"/>";
 		
-		ret += "<input type=\"hidden\" name=\""; 
-		ret += attr + "\" value=\"" + value + "\"/>";
+		
+		if (attrs != null) {
+			for (String attr : attrs.keySet()){		
+				ret += "<input type=\"hidden\" name=\""; 
+				ret += attr + "\" value=\"" + attrs.get(attr) + "\"/>";
+			}
+		}
 		
 		ret += "<input type=\"submit\" class=\"simple_submit\" value=\""; 
 		ret += label + "\"/>";

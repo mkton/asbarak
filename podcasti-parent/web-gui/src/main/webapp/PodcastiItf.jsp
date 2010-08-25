@@ -4,7 +4,7 @@
 
 <%@page import="org.ow2.podcasti.web.PodcastiServlet"%>
 <%@page import="org.ow2.podcasti.model.Feed"%>
-<%@page import="org.ow2.podcasti.core.Episode"%>
+<%@page import="org.ow2.podcasti.model.Episode"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.Map.Entry"%>
@@ -238,19 +238,21 @@
 		                        ret += "<a href=\"#\">"+ feed.name +"</a>";
 		                        ret += "</span>\n";
 		                        ret += "<span class=\"feed_actions\" id=\"actions_" + feed.id +"\">";
-		                        // form for manage the feed
+		                        
+		                        // forms for manage the feed : remove and archive
+		                        HashMap<String, String> remAttr = new HashMap<String, String>();
+		                        remAttr.put(PodcastiServlet.feedId, feed.id.toString());
 		                        ret += PodcastiServlet.createFormAsLink(
 		                        		PodcastiServlet.remove,
-		                        		PodcastiServlet.id,
-		                        		feed.id.toString(),
-		                        		"remove");
+		                        		"remove",
+		                        		remAttr);
 		                        
 		                        //ret += "<a href=\"#\" onclick=\"remove_feed(" + feed.id + ");\">remove</a> .. ";
-		                        ret += ret += PodcastiServlet.createFormAsLink(
-		                        		PodcastiServlet.archives,
-		                        		PodcastiServlet.id,
-		                        		feed.id.toString(),
-		                        		"archives");
+		                        
+		                      	// ret += ret += PodcastiServlet.createFormAsLink(
+		                        //		PodcastiServlet.archives,		                        		
+		                        //		"archives",
+		                        //		null);
 		                        
 		                        ret += "</span>\n";
 		                        
@@ -279,7 +281,13 @@
 		                        	ret += "  ..  <a> play on media server </a> .. ";
 		                        			                        	
 		                        	// archive on the storage server
-		                        	ret += " <a> archive </a>";
+		                        	HashMap<String, String> archAttr = new HashMap<String, String>();
+		                        	archAttr.put(PodcastiServlet.feedId, feed.id.toString());
+		                        	archAttr.put(PodcastiServlet.episodeId, episode.id.toString());
+		                        	ret += PodcastiServlet.createFormAsLink(
+		                        		PodcastiServlet.archive,
+		                        		"archive",
+		                        		archAttr);
 		                        	
 		                        	ret += "</div>\n";
 		                        	ret += "</li>\n";

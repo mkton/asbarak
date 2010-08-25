@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import org.osoa.sca.annotations.Init;
