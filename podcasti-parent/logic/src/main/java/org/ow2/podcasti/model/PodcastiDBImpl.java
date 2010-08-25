@@ -26,17 +26,6 @@ public class PodcastiDBImpl implements PodcastiDBService {
 	public HashSet<Feed> feeds;
 
 	private Integer currentMaxId;
-/*
-	public HashMap<Integer, String> getFeeds() {
-
-		HashMap<Integer, String> ret = new HashMap<Integer, String>();
-
-		for (Feed feed : feeds) {
-			ret.put(feed.id, feed.name);
-		}
-
-		return ret;
-	}*/
 	
 	public HashSet<Feed> getFeeds(){
 		return this.feeds;

@@ -190,11 +190,6 @@
 	
 <body>
 
-	<%
-		//String up = AudioPlayerServlet.formatServletUrl(PodcastiServlet.getList);
-		//String down = AudioPlayerServlet.formatServletUrl(AudioPlayerServlet.down);
-	%>	
-
 	<div id="frame">
 
 		<div id="header">				
@@ -271,14 +266,16 @@
 		                        	
 		                        	ret += "<div class=\"episode\" id=\"episode";
 		                        	ret += feed.id + "_" + episode.id + "\">";		                        	
-		                        	
-		                        	// now, we add button for episode management
-		                        	
+		                        			                        	
 		                        	// play via the navigator
 		                        	ret += "<a target=\"_blank\" href=\"" + episode.location + "\">link</a>";
+
+		                        	ret += "&nbsp;&nbsp;..&nbsp;&nbsp;";
 		                        	
 		                        	// play on the media server
-		                        	ret += "  ..  <a> play on media server </a> .. ";
+		                        	ret += "<a> play on media server </a>";"
+		                        	
+		                        	ret += "&nbsp;&nbsp;..&nbsp;&nbsp;";
 		                        			                        	
 		                        	// archive on the storage server
 		                        	HashMap<String, String> archAttr = new HashMap<String, String>();

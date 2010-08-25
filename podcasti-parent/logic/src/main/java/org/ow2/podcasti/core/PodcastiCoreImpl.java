@@ -31,12 +31,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 	PodcastiArchiveService archive;
 	
 	//@Reference(name="audio-player")
-	
-
-	/*ublic HashMap<Integer, String> getFeeds() {
-		return db.getFeeds();
-	}*/
-	
+		
 	// we save feed construction, in order to not rebuilt it each time
 	//TODO, create a timer for update it
 	private HashMap<Integer, HashSet<Episode>> episodes = 
@@ -49,7 +44,6 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 	public boolean addFeed(URI address) {
 
 		try {
-
 			// Feed verification
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed = input.build(new XmlReader(address.toURL()));
@@ -66,6 +60,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 			return true;
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 

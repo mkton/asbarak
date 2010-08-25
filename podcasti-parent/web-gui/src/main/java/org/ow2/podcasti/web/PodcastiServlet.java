@@ -49,6 +49,7 @@ public class PodcastiServlet implements Servlet {
 	 */
 	public static final String main = "PodcastiItf.jsp";
 	
+	// the FraSCAti user interface component 
 	private PodcastiUIService ui;
 	
 	public void destroy() {
@@ -80,6 +81,7 @@ public class PodcastiServlet implements Servlet {
 
 	public void init(ServletConfig arg0) throws ServletException {		
 		try {
+			// we create the link with the FraSCAti component via RMI
 			System.setSecurityManager(new java.rmi.RMISecurityManager());			
 			//TODO parameterized it
 			this.ui = (PodcastiUIService) Naming.lookup("//localhost:1099/podcasti-rmi-service");
@@ -94,8 +96,7 @@ public class PodcastiServlet implements Servlet {
 		String action = request.getParameter(PodcastiServlet.action);
 		
 		if ( (action == null) || (action.equals("")) )
-			action = PodcastiServlet.getList;
-		
+			action = PodcastiServlet.getList;		
 		
 		if ( action.equals(PodcastiServlet.getList) ){
 			request.setAttribute(PodcastiServlet.list, createList());
