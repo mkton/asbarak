@@ -1,1 +1,8 @@
 asbarak is a great project
+
+asbarak-server)
+	contains generic features for asbarak apps
+
+asbarak-apps)
+	compliant apps
+

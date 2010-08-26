@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.osoa.sca.annotations.Reference;
 import org.ow2.podcasti.archive.PodcastiArchiveService;
@@ -34,8 +35,8 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 		
 	// we save feed construction, in order to not rebuilt it each time
 	//TODO, create a timer for update it
-	private HashMap<Integer, HashSet<Episode>> episodes = 
-		new HashMap<Integer, HashSet<Episode>>();
+	private HashMap<Integer, LinkedHashSet<Episode>> episodes = 
+		new HashMap<Integer, LinkedHashSet<Episode>>();
 
 	public HashSet<Feed> getFeeds(){
 		return db.getFeeds();
@@ -78,11 +79,11 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 	public HashSet<Episode> get3Last(Integer feedId) {
 
 		// first, we try to find it in the save
-		HashSet<Episode> ret = episodes.get(feedId);
+		LinkedHashSet<Episode> ret = episodes.get(feedId);
 		if (ret != null)
 			return ret;
 		else
-			ret = new HashSet<Episode>();
+			ret = new LinkedHashSet<Episode>();
 
 		try {
 						
@@ -110,6 +111,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 					ep = new Episode(sEntry.getTitle(),
 							sEntry.getPublishedDate(),
 							uri,
+							sEntry.getLink(),
 							feedId,
 							i);
 

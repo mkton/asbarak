@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -135,7 +136,7 @@
 				border :1pt dashed #747E80;
 				margin-bottom: 15px;
 				margin-top: 5px;
-				width : 250px;
+				width : 320px;
 				font-weight: bold; 
 				background-color:#F7F3E8;
 			}
@@ -230,7 +231,7 @@
 		                        ret += "<span onclick=\"display_feed(";
 		                        ret += feed.id;
 		                        ret += ")\">";
-		                        ret += "<a href=\"#\">"+ feed.name +"</a>";
+		                        ret += "<a href=\"#\">"+ feed.name + "</a>";
 		                        ret += "</span>\n";
 		                        ret += "<span class=\"feed_actions\" id=\"actions_" + feed.id +"\">";
 		                        
@@ -255,11 +256,12 @@
 		                        
 		                        // then we create the associated episodes
 		                        episodes = e.getValue();
+		                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		                        for (Episode episode : episodes){
 		                        	ret += "<li>\n\t";
 		                        	ret += "<span onclick=\"display_episode(";
 		                        	ret += feed.id +"," + episode.id + ");\">";
-		                        	ret += "<a href=\"#\">" + episode.title + "</a>";
+		                        	ret += "<a href=\"#\"> <b>" + formatter.format(episode.date) + "</b> " + episode.title + "</a>";
 		                        	ret += "</span>\n";
 		                        	
 		                        	// here we create the features for an episode
@@ -270,12 +272,12 @@
 		                        	// play via the navigator
 		                        	ret += "<a target=\"_blank\" href=\"" + episode.location + "\">link</a>";
 
-		                        	ret += "&nbsp;&nbsp;..&nbsp;&nbsp;";
+		                        	ret += " .. ";
 		                        	
 		                        	// play on the media server
-		                        	ret += "<a> play on media server </a>";"
+		                        	ret += "<a>play on media server</a>";
 		                        	
-		                        	ret += "&nbsp;&nbsp;..&nbsp;&nbsp;";
+		                        	ret += "&nbsp;..&nbsp;";
 		                        			                        	
 		                        	// archive on the storage server
 		                        	HashMap<String, String> archAttr = new HashMap<String, String>();
@@ -285,6 +287,11 @@
 		                        		PodcastiServlet.archive,
 		                        		"archive",
 		                        		archAttr);
+		                        	
+		                        	ret += "&nbsp;..&nbsp;";
+		                        	
+		                        	// link to the html description
+		                        	ret += "<a target=\"_blank\" href=" + episode.desc + ">see</a>";
 		                        	
 		                        	ret += "</div>\n";
 		                        	ret += "</li>\n";
