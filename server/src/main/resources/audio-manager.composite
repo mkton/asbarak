@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" 
+	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" 
+	xmlns:frascati-upnp="http://frascati.ow2.org/xmlns/upnp/1.0"
+	name="audio-manager">
+
+  <service name="audio-player-service" promote="audio-player-component/audio-player-service">
+ 	<frascati:binding.jsonrpc uri="http://localhost:9001/JSON-RPC/AudioPlayer"/>
+ 	<frascati-upnp:binding.upnp />
+  </service>
+  
+  <component name="audio-player-component">
+    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.AudioPlayerImpl"/>
+    <service name="audio-player-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AudioPlayerItfService"/>
+    </service>
+    <reference name="vlc-manager-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.VlcManager"/>
+    </reference>
+    <reference name="alsamixer-manager-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AlsamixerManager"/>
+    </reference>
+  </component>
+  
+  <component name="vlc-manager-component">
+    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.VlcManagerImpl"/>
+    <service name="vlc-manager-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.VlcManager"/>
+    </service>
+    <reference name="os-command-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+    </reference>
+  </component>
+  
+  <component name="alsamixer-manager-component">
+    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.AlsamixerManagerImpl"/>
+    <service name="alsamixer-manager-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AlsamixerManager"/>
+    </service>
+    <reference name="os-command-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+    </reference>
+  </component>
+  
+  <component name="os-command-component">  
+  	<implementation.java class="org.ow2.frascati.demonstration.ase.os.CommandProcessorImpl"/>    	
+  	<service name="os-command-service">
+      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+    </service>        
+  </component>
+  
+  <wire source="audio-player-component/vlc-manager-service" target="vlc-manager-component/vlc-manager-service"/>
+  <wire source="audio-player-component/alsamixer-manager-service" target="alsamixer-manager-component/alsamixer-manager-service"/>  
+  <wire source="alsamixer-manager-component/os-command-service" target="os-command-component/os-command-service"/>
+  <wire source="vlc-manager-component/os-command-service" target="os-command-component/os-command-service"/>
+  
+</composite>
