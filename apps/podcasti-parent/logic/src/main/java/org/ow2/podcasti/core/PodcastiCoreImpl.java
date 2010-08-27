@@ -12,9 +12,9 @@ import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
 import org.ow2.asbarak.audio.VlcManager;
 import org.ow2.podcasti.archive.PodcastiArchiveService;
+import org.ow2.podcasti.model.Archive;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
-import org.ow2.podcasti.model.PodcastiDBService;
 import org.ow2.podcasti.model.PodcastiModelService;
 import org.ow2.podcasti.model.UnavailableElementException;
 import org.ow2.podcasti.ui.PodcastiUIService;
@@ -170,6 +170,14 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 				}
 		}
 
+	}
+
+	public HashSet<Archive> getArchives(Integer feedId) {
+		return model.getArchives(feedId);
+	}
+
+	public void removeArchive(Integer archiveId) {
+		model.removeArchive(archiveId);
 	}
 
 }

@@ -7,9 +7,11 @@ import java.util.HashSet;
 
 import org.osoa.sca.annotations.Init;
 import org.osoa.sca.annotations.Reference;
+import org.osoa.sca.annotations.Scope;
 
 import com.sun.syndication.io.FeedException;
 
+@Scope("COMPOSITE")
 public class PodcastiModelImpl implements PodcastiModelService {
 
 	private PodcastiModel model;
@@ -45,7 +47,7 @@ public class PodcastiModelImpl implements PodcastiModelService {
 	public void addFeed(URI address) throws IllegalArgumentException,
 			MalformedURLException, FeedException, IOException {
 
-		Feed newFeed = new Feed(this.createId(), address);
+		Feed newFeed = new Feed(this.createId(feedCurrentMaxId), address);
 		this.model.feeds.add(newFeed);
 		db.write(this.model);
 	}
@@ -58,9 +60,9 @@ public class PodcastiModelImpl implements PodcastiModelService {
 		db.write(this.model);
 	}
 
-	private Integer createId() {
+	private Integer createId(Integer currentMaxId) {
 		// we may need to initialize it
-		if (feedCurrentMaxId == null) {
+		if (currentMaxId == null) {
 			int i = 0;
 
 			for (Feed feed : model.feeds) {
@@ -68,20 +70,39 @@ public class PodcastiModelImpl implements PodcastiModelService {
 					i = feed.id;
 			}
 
-			feedCurrentMaxId = i;
+			currentMaxId = i;
 		}
 
-		return ++feedCurrentMaxId;
+		return ++currentMaxId;
 	}
 
 	public void archiveEpisode(Episode episode, URI location) {
-		// TODO Auto-generated method stub
+		Archive archive = new Archive(
+				episode, 
+				location, 
+				this.createId(archiveCurrentMaxId));
 		
+		model.archives.add(archive);
 	}
 
 	public void removeArchive(Integer archiveId) {
-		// TODO Auto-generated method stub
+		for (Archive archive : model.archives){
+			if (archive.id.equals(archiveId)){ 
+				model.archives.remove(archive);
+				return;
+			}
+		}
+	}
+
+	public HashSet<Archive> getArchives(Integer feedId) {
+		HashSet<Archive> ret = new HashSet<Archive>();
+		for (Archive archive : model.archives){
+			if (archive.episode.feedId.equals(feedId)){ 
+				ret.add(archive);
+			}
+		}
 		
+		return ret;
 	}
 	
 }

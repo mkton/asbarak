@@ -12,6 +12,7 @@ import org.objectweb.fractal.api.Component;
 import org.ow2.frascati.FraSCAti;
 import org.ow2.frascati.util.FrascatiException;
 import org.ow2.podcasti.archive.PodcastiArchiveImpl;
+import org.ow2.podcasti.model.Archive;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 import org.ow2.podcasti.ui.PodcastiUIService;
@@ -51,10 +52,20 @@ public class Podcastest {
 		
 		HashSet<Integer> ids = new HashSet<Integer>();
 		
+		// we collect ids
 		for (Feed feed : ui.getFeeds()){
 			ids.add(feed.id);
 		}
 		
+		// then we remove associated archives
+		for (Integer i : ids){
+			HashSet<Archive> archs = ui.getArchives(i);
+			for (Archive arch : archs){
+				ui.removeArchive(arch.id);
+			}
+		}
+		
+		// and finally we remove the feeds
 		for (Integer i : ids){
 			ui.removeFeed(i);
 		}
@@ -135,7 +146,10 @@ public class Podcastest {
 			
 			// we assert the archive has been save in the database
 			
-			
+			HashSet<Archive> archives = ui.getArchives(feedId);
+			assertTrue(archives.size() == 1);
+			Episode archEp = archives.iterator().next().episode;
+			assertTrue(archEp.title.equals(ep.title));
 			
 			// then we try to access to the archive
 			

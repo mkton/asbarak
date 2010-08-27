@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.HashSet;
 
 import org.osoa.sca.annotations.Service;
+import org.ow2.podcasti.model.Archive;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 
@@ -23,4 +24,8 @@ public interface PodcastiUIService {
 	public void playOnServer(URI podcastLocation);
 	
 	public void archive(Integer feedId, Integer episodeId);
+	
+	public HashSet<Archive> getArchives(Integer feedId);
+
+	public void removeArchive(Integer archiveId);
 }

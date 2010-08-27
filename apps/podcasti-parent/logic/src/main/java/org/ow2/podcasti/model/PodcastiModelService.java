@@ -20,5 +20,6 @@ public interface PodcastiModelService {
 	public void archiveEpisode(Episode episode, URI location);
 	
 	public void removeArchive(Integer archiveId);
-		
+	
+	public HashSet<Archive> getArchives(Integer feedId); 
 }
