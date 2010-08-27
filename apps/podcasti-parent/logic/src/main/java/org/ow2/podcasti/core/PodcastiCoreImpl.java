@@ -9,11 +9,13 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import org.osoa.sca.annotations.Reference;
+import org.osoa.sca.annotations.Scope;
 import org.ow2.asbarak.audio.VlcManager;
 import org.ow2.podcasti.archive.PodcastiArchiveService;
 import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 import org.ow2.podcasti.model.PodcastiDBService;
+import org.ow2.podcasti.model.PodcastiModelService;
 import org.ow2.podcasti.model.UnavailableElementException;
 import org.ow2.podcasti.ui.PodcastiUIService;
 
@@ -24,10 +26,11 @@ import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+@Scope("COMPOSITE")
 public class PodcastiCoreImpl implements PodcastiUIService {
 
-	@Reference(name="podcasti-db-reference")
-	PodcastiDBService db;
+	@Reference(name="podcasti-model-reference")
+	PodcastiModelService model;
 	
 	@Reference(name="podcasti-archives-reference")
 	PodcastiArchiveService archive;
@@ -41,7 +44,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 		new HashMap<Integer, LinkedHashSet<Episode>>();
 
 	public HashSet<Feed> getFeeds(){
-		return db.getFeeds();
+		return model.getFeeds();
 	}
 	
 	public boolean addFeed(URI address) {
@@ -53,12 +56,12 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 			String title = feed.getTitle();
 			
 			// we assert that we don't yet follow it :
-			for (Feed f: db.getFeeds())				
+			for (Feed f: model.getFeeds())				
 				if (f.name.equals(title))
 					return false;
 			
 			// Add to database
-			db.addFeed(address);
+			model.addFeed(address);
 
 			return true;
 
@@ -71,7 +74,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 
 	public void removeFeed(Integer feedId) {
 		try {
-			db.removeFeed(feedId);
+			model.removeFeed(feedId);
 		} catch (UnavailableElementException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +92,7 @@ public class PodcastiCoreImpl implements PodcastiUIService {
 
 		try {
 						
-			URI address = db.getFeed(feedId);
+			URI address = model.getFeed(feedId);
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed;
 			feed = input.build(new XmlReader(address.toURL()));

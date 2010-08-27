@@ -14,8 +14,8 @@
       <interface.java interface="org.ow2.podcasti.ui.PodcastiUIService"/>
     </service>
     
-    <reference name="podcasti-db-reference">
-    	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
+    <reference name="podcasti-model-reference">
+    	<interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
     </reference>   
     
     <reference name="vlc-manager-reference">
@@ -31,11 +31,23 @@
   <component name="podcasti-db">  
   	<implementation.java class="org.ow2.podcasti.model.PodcastiDBImpl"/>
   
-  	<property name="db-path">/tmp/podcasti-test.db</property>
+  	<property name="db-path">/tmp/podcasti.db</property>
     
     <service name="podcasti-db-service">
       <interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
     </service>    
+  </component>
+  
+  <component name="podcasti-model">  
+  	<implementation.java class="org.ow2.podcasti.model.PodcastiModelImpl"/>
+    
+    <service name="podcasti-model-service">
+      <interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
+    </service>    
+    
+    <reference name="podcasti-db-reference">
+    	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
+    </reference>
   </component>
     
   <component name="podcasti-archives">  
@@ -68,7 +80,10 @@
     </service>        
   </component>  
   
-  <wire source="podcasti-core/podcasti-db-reference" 
+  <wire source="podcasti-core/podcasti-model-reference" 
+  	target="podcasti-model/podcasti-model-service"/>
+  	
+  <wire source="podcasti-model/podcasti-db-reference" 
   	target="podcasti-db/podcasti-db-service"/>
 
   <wire source="podcasti-core/podcasti-archives-reference" 

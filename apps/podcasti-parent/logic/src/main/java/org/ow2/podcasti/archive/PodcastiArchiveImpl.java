@@ -7,15 +7,20 @@ import java.text.SimpleDateFormat;
 import java.util.HashSet;
 
 import org.osoa.sca.annotations.Property;
+import org.osoa.sca.annotations.Reference;
 import org.ow2.podcasti.model.Archive;
 import org.ow2.podcasti.model.Episode;
+import org.ow2.podcasti.model.PodcastiModelService;
 
 public class PodcastiArchiveImpl implements PodcastiArchiveService {
 
 	@Property(name="archives-path")
 	String archivesPath;
 	
-	public Archive archivePodcast(Episode episode) throws URISyntaxException {
+	@Reference(name="podcasti-model-reference")
+	PodcastiModelService model;
+	
+	public void archivePodcast(Episode episode) throws URISyntaxException {
 		
 		URI destination = 
 			PodcastiArchiveImpl.createDestination(archivesPath, episode);
@@ -23,7 +28,10 @@ public class PodcastiArchiveImpl implements PodcastiArchiveService {
 		// we start the copy thread
 		(new Archiver(episode.location, destination)).start();
 		
-		return null;
+		// we save archive into our model
+		model.archiveEpisode(episode, destination);
+		
+		return;
 	}
 
 	public HashSet<Archive> getArchives(Integer feedId) {

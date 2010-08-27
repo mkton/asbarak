@@ -47,7 +47,8 @@ public class PodcastiServlet implements Servlet {
 	/*
 	 * Pages
 	 */
-	public static final String main = "PodcastiItf.jsp";
+	public static final String main_jsp = "PodcastiItf.jsp";
+	public static final String archives_jsp = "ArchivesItf.jsp";
 	
 	// the FraSCAti user interface component 
 	private PodcastiUIService ui;
@@ -100,7 +101,7 @@ public class PodcastiServlet implements Servlet {
 		
 		if ( action.equals(PodcastiServlet.getList) ){
 			request.setAttribute(PodcastiServlet.list, createList());
-			request.getRequestDispatcher(PodcastiServlet.main).forward(request, response);
+			request.getRequestDispatcher(PodcastiServlet.main_jsp).forward(request, response);
 			return;
 		}		
 		

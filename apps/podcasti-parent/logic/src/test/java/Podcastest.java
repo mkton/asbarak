@@ -4,7 +4,6 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 
 import org.junit.After;
@@ -25,15 +24,18 @@ public class Podcastest {
 	public static String testFeed2 = "http://jazzandbeyond.podbean.com/feed/";
 	
 	// path for archives
-	public static String archivesPath = "/tmp/podcasti-archives/";
+	public static String archivesPath = "/tmp/podcasti-archives-test/";
+	
+	// path to a small file for archive testing
+	public static String filePath = "http://www.google.fr/intl/en_com/images/srpr/logo1w.png";
 	
 	PodcastiUIService ui;
 	
 	
-	public Podcastest() throws FrascatiException{
+	public Podcastest() throws FrascatiException, SecurityException, NoSuchFieldException{
 				
 		FraSCAti frascati = FraSCAti.newFraSCAti();
-
+		
 	    Component composite = frascati.getComposite("podcasti-test");
 	    this.ui = frascati.getService(composite, "podcasti-ui", PodcastiUIService.class);
 	    
@@ -121,22 +123,71 @@ public class Podcastest {
 			ui.addFeed(new URI(testFeed3));
 			Integer feedId = ((Feed) ui.getFeeds().iterator().next()).id;
 			Episode ep = ui.get3Last(feedId).iterator().next();
-			
 			ui.archive(feedId, ep.id);
+			
+			// we only test that the file exist, copying is supported by 
+			// Apache common-io, and we really trust those guys.			
 			
 			URI destination = 
 				PodcastiArchiveImpl.createDestination(archivesPath, ep);
 			
+			assertTrue((new File(destination)).exists());
+			
+			// we assert the archive has been save in the database
+			
+			
+			
+			// then we try to access to the archive
+			
+			
+			// impossible because we cannot use reflection 
+			// across FraSCAti services
+			/*
+			// we try to archive an episode			
+			// we cannot wait until it has been downloaded,  
+			// so we fake the url for a smaller file...			
+			ui.addFeed(new URI(testFeed3));
+			Integer feedId = ((Feed) ui.getFeeds().iterator().next()).id;
+			HashSet<Episode> episodes = ui.get3Last(feedId);
+			Episode ep = episodes.iterator().next();
+			ep.location=new URI(Podcastest.filePath);
+			
+			// we make this fields accessible for faking it
+			Field field = PodcastiCoreImpl.class.getDeclaredField("episodes");
+			field.setAccessible(true);		
+			ui.getFeeds();
+			HashMap<Integer, LinkedHashSet<Episode>> episodes_mock = 
+				new HashMap<Integer, LinkedHashSet<Episode>>();			
+			episodes_mock.put(feedId, (LinkedHashSet) episodes);
+			field.set(ui, episodes_mock);
+			
+			ui.archive(feedId, ep.id);
+					
+			// we assert the file is available and the same as we expect
+
+			URI destination = 
+				PodcastiArchiveImpl.createDestination(archivesPath, ep);
+			
+			File expected = new File(System.getProperty("java.io.tmpdir") 
+					+ File.separator 
+					+ "podcastest.tmp");
+			
+			FileUtils.copyURLToFile(
+					(new URI(Podcastest.filePath)).toURL(), 
+					expected);
+
 			assertTrue(
 					(new File(destination)).getTotalSpace() ==
-						(new File(ep.location)).getTotalSpace()
+						expected.getTotalSpace()
 				);
-			
-		} catch (URISyntaxException e) {
+			*/
+
+		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 		
 	}
+	
 	
 	
 }
