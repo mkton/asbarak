@@ -10,42 +10,42 @@
   </service>
   
   <component name="audio-player-component">
-    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.AudioPlayerImpl"/>
+    <implementation.java class="org.ow2.asbarak.audio.AudioPlayerImpl"/>
     <service name="audio-player-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AudioPlayerItfService"/>
+      <interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
     </service>
     <reference name="vlc-manager-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.VlcManager"/>
+      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
     </reference>
     <reference name="alsamixer-manager-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AlsamixerManager"/>
+      <interface.java interface="org.ow2.asbarak.audio.AlsamixerManager"/>
     </reference>
   </component>
   
   <component name="vlc-manager-component">
-    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.VlcManagerImpl"/>
+    <implementation.java class="org.ow2.asbarak.audio.VlcManagerImpl"/>
     <service name="vlc-manager-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.VlcManager"/>
+      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
     </service>
     <reference name="os-command-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
     </reference>
   </component>
   
   <component name="alsamixer-manager-component">
-    <implementation.java class="org.ow2.frascati.demonstration.ase.audio.AlsamixerManagerImpl"/>
+    <implementation.java class="org.ow2.asbarak.audio.AlsamixerManagerImpl"/>
     <service name="alsamixer-manager-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.audio.AlsamixerManager"/>
+      <interface.java interface="org.ow2.asbarak.audio.AlsamixerManager"/>
     </service>
     <reference name="os-command-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
     </reference>
   </component>
   
   <component name="os-command-component">  
-  	<implementation.java class="org.ow2.frascati.demonstration.ase.os.CommandProcessorImpl"/>    	
+  	<implementation.java class="org.ow2.asbarak.os.CommandProcessorImpl"/>    	
   	<service name="os-command-service">
-      <interface.java interface="org.ow2.frascati.demonstration.ase.os.CommandProcessorService"/>
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
     </service>        
   </component>
   

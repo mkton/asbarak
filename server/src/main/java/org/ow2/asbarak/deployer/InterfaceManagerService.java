@@ -1,4 +1,4 @@
-package org.ow2.frascati.demonstration.ase.deployer;
+package org.ow2.asbarak.deployer;
 
 import org.osoa.sca.annotations.Service;
 import org.ow2.frascati.assembly.factory.api.CompositeManager;

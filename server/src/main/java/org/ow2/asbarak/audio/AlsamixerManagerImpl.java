@@ -1,4 +1,4 @@
-package org.ow2.frascati.demonstration.ase.audio;
+package org.ow2.asbarak.audio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
-import org.ow2.frascati.demonstration.ase.os.CommandProcessorService;
+import org.ow2.asbarak.os.CommandProcessorService;
 
 @Scope("COMPOSITE")
 public class AlsamixerManagerImpl implements AlsamixerManager {

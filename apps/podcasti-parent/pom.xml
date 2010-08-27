@@ -12,12 +12,13 @@
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
+	<name>Podcasti parent</name>
+
 	<modules>
 		<module>web-gui</module>
 		<module>logic</module>
 	</modules>
 
-  
 	<build>
 		<plugins>
 			<plugin>

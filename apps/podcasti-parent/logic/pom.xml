@@ -33,6 +33,11 @@
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
+  	<dependency>
+  		<groupId>org.ow2.asbarak.server</groupId>
+  		<artifactId>asbarak-server</artifactId>
+  		<version>0.0.2-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
   
   <profiles>

@@ -243,7 +243,6 @@
 		                        		"remove",
 		                        		remAttr);
 		                        
-		                        //ret += "<a href=\"#\" onclick=\"remove_feed(" + feed.id + ");\">remove</a> .. ";
 		                        
 		                      	// ret += ret += PodcastiServlet.createFormAsLink(
 		                        //		PodcastiServlet.archives,		                        		
@@ -275,7 +274,12 @@
 		                        	ret += " .. ";
 		                        	
 		                        	// play on the media server
-		                        	ret += "<a>play on media server</a>";
+		                        	HashMap<String, String> attrs = new HashMap<String, String>();
+		                        	attrs.put(PodcastiServlet.location, episode.location.toString());
+		                        	ret += PodcastiServlet.createFormAsLink(
+		                        		PodcastiServlet.play,
+		                        		"play on media server",
+		                        		attrs);
 		                        	
 		                        	ret += "&nbsp;..&nbsp;";
 		                        			                        	

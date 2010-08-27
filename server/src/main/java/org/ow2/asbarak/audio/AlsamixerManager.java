@@ -1,4 +1,4 @@
-package org.ow2.frascati.demonstration.ase.audio;
+package org.ow2.asbarak.audio;
 
 import org.osoa.sca.annotations.Service;
 

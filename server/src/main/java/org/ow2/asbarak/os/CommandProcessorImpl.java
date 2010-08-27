@@ -1,4 +1,4 @@
-package org.ow2.frascati.demonstration.ase.os;
+package org.ow2.asbarak.os;
 
 import java.io.IOException;
 

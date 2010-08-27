@@ -7,8 +7,7 @@
   	<frascati:binding.rmi host="localhost" serviceName="podcasti-rmi-service" port="1099"/>
   </service>
 
-  <component name="podcasti-core">
-  
+  <component name="podcasti-core">  
     <implementation.java class="org.ow2.podcasti.core.PodcastiCoreImpl"/>
     
     <service name="podcasti-ui-service">
@@ -19,41 +18,66 @@
     	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
     </reference>   
     
+    <reference name="vlc-manager-reference">
+    	<interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    </reference>   
+    
     <reference name="podcasti-archives-reference">
     	<interface.java 
     		interface="org.ow2.podcasti.archive.PodcastiArchiveService"/>
-    </reference>
-          
+    </reference>          
   </component>
   
-  <component name="podcasti-db">
-  
+  <component name="podcasti-db">  
   	<implementation.java class="org.ow2.podcasti.model.PodcastiDBImpl"/>
   
   	<property name="db-path">/tmp/podcasti-test.db</property>
     
     <service name="podcasti-db-service">
       <interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
-    </service>
-    
+    </service>    
   </component>
-  
-   <component name="podcasti-archives">
-  
+    
+  <component name="podcasti-archives">  
   	<implementation.java class="org.ow2.podcasti.archive.PodcastiArchiveImpl" />
   
   	<property name="archives-path">/tmp/podcasti-archives/</property>
   	
   	<service name="podcasti-archives-service">
   		<interface.java interface="org.ow2.podcasti.archive.PodcastiArchiveService" />
-  	</service>
-  	
+  	</service>  	
   </component>
+  
+  <component name="vlc-manager-component">
+    <implementation.java class="org.ow2.asbarak.audio.VlcManagerImpl"/>
+    
+    <service name="vlc-manager-service">
+      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    </service>
+    
+    <reference name="os-command-reference">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>
+  </component>
+  
+  <component name="os-command-component">  
+  	<implementation.java class="org.ow2.asbarak.os.CommandProcessorImpl"/>    
+  		
+  	<service name="os-command-service">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </service>        
+  </component>  
   
   <wire source="podcasti-core/podcasti-db-reference" 
   	target="podcasti-db/podcasti-db-service"/>
 
   <wire source="podcasti-core/podcasti-archives-reference" 
   	target="podcasti-archives/podcasti-archives-service"/>
-  
+  	
+  <wire source="vlc-manager-component/os-command-reference" 
+    target="os-command-component/os-command-service"/>
+    
+  <wire source="podcasti-core/vlc-manager-reference"
+    target="vlc-manager-component/vlc-manager-service"/>
+    
 </composite>

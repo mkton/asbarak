@@ -126,6 +126,14 @@ public class PodcastiServlet implements Servlet {
 			ui.archive(Integer.parseInt(feedId), Integer.parseInt(episodeId));
 		}
 		
+		if ( action.equals(PodcastiServlet.play)) {
+			try {
+				ui.playOnServer(new URI(request.getParameter(PodcastiServlet.location)));
+			} catch (URISyntaxException e) {
+				request.setAttribute(PodcastiServlet.error, "This is is not a valid URI : " + location);
+			}
+		}
+		
 		request.getRequestDispatcher("/podcasti?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
 	}
 	
