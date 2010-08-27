@@ -11,6 +11,8 @@
   <artifactId>web-gui</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   
+  <name>Podcasti web UI</name>
+  
   <dependencies>
   	<dependency>
   		<groupId>javax.servlet</groupId>

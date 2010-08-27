@@ -11,6 +11,8 @@
   <artifactId>logic</artifactId>
   <version>0.0.2-SNAPSHOT</version>
   
+  <name>Podcasti logic</name>
+  
   <dependencies>
   	<dependency>
   		<groupId>net.java.dev.rome</groupId>

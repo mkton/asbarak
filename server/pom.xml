@@ -6,7 +6,13 @@
 	<groupId>org.ow2.asbarak.server</groupId>
 	<artifactId>asbarak-server</artifactId>
 	<packaging>jar</packaging>
-	<version></version>
+	<version>0.0.2-SNAPSHOT</version>
+	
+  <parent>
+    <groupId>org.ow2.asbarak</groupId>
+    <artifactId>asbarak-parent</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+  </parent>
 
 	<name>AsbaraK server</name>
 
