@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  name="scaudio-composite">
+	  	
+  <service name="scaudio-ui-service" promote="scaudio-ui-component/scaudio-ui-service">
+  	<frascati:binding.rmi host="localhost" serviceName="scaudio-rmi-service" port="1099"/>
+  </service>
+  
+  <component name="scaudio-ui-component">  	
+  	<implementation.java class="org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIImpl"/>
+  
+  	<service name="scaudio-ui-service">
+  		<interface.java interface="org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIService"/>
+  	</service>
+  	
+  	<reference name="vlc-manager-reference">
+  		<interface.java interface="org.ow2.asbarak.apps.scaudio.vlc.VlcManager"/>
+  	</reference>
+  	
+  	<reference name="alsamixer-manager-reference">
+      <interface.java interface="org.ow2.asbarak.apps.scaudio.alsamixer.AlsamixerManager"/>
+    </reference>  	  	
+  </component>
+  
+  <component name="alsamixer-manager-component">
+    <implementation.java class="org.ow2.asbarak.apps.scaudio.alsamixer.AlsamixerManagerImpl"/>
+    
+    <service name="alsamixer-manager-service">
+      <interface.java interface="org.ow2.asbarak.apps.scaudio.alsamixer.AlsamixerManager"/>
+    </service>
+    
+    <reference name="os-command-reference">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>    
+  </component>  
+  
+  <component name="vlc-manager-component">
+    <implementation.java class="org.ow2.asbarak.apps.scaudio.vlc.VlcManagerImpl"/>
+    
+    <service name="vlc-manager-service">
+      <interface.java interface="org.ow2.asbarak.apps.scaudio.vlc.VlcManager"/>
+    </service>
+    
+    <reference name="os-command-reference">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>    
+  </component>
+  
+  <component name="os-command-component">  
+  	<implementation.java class="org.ow2.asbarak.os.CommandProcessorImpl"/>    
+  		
+  	<service name="os-command-service">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </service>        
+  </component>  
+      	
+  <wire source="scaudio-ui-component/alsamixer-manager-reference" 
+  	target="alsamixer-manager-component/alsamixer-manager-service"/>
+
+  <wire source="scaudio-ui-component/vlc-manager-reference" 
+  	target="vlc-manager-component/vlc-manager-service"/>
+  	
+  <wire source="vlc-manager-component/os-command-reference" 
+    target="os-command-component/os-command-service"/>
+    
+  <wire source="alsamixer-manager-component/os-command-reference" 
+    target="os-command-component/os-command-service"/>
+    
+</composite>
