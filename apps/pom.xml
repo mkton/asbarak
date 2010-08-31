@@ -23,6 +23,7 @@
    
   <modules>
     <module>podcasti-parent</module>
+    <module>scaudio-parent</module>
   </modules>
   
   	

@@ -8,7 +8,7 @@
   </service>
 
   <component name="podcasti-core">  
-    <implementation.java class="org.ow2.podcasti.core.PodcastiCoreImpl"/>
+    <implementation.java class="org.ow2.podcasti.ui.PodcastiUIImpl"/>
     
     <service name="podcasti-ui-service">
       <interface.java interface="org.ow2.podcasti.ui.PodcastiUIService"/>

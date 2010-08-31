@@ -1,4 +1,4 @@
-package org.ow2.podcasti.core;
+package org.ow2.podcasti.ui;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,7 +17,6 @@ import org.ow2.podcasti.model.Episode;
 import org.ow2.podcasti.model.Feed;
 import org.ow2.podcasti.model.PodcastiModelService;
 import org.ow2.podcasti.model.UnavailableElementException;
-import org.ow2.podcasti.ui.PodcastiUIService;
 
 import com.sun.syndication.feed.synd.SyndEnclosure;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -27,7 +26,7 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 @Scope("COMPOSITE")
-public class PodcastiCoreImpl implements PodcastiUIService {
+public class PodcastiUIImpl implements PodcastiUIService {
 
 	@Reference(name="podcasti-model-reference")
 	PodcastiModelService model;
