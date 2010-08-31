@@ -1,6 +1,7 @@
 package org.ow2.asbarak.apps.scaudio.web;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.rmi.Naming;
 import java.util.HashMap;
@@ -93,7 +94,7 @@ public class AudioPlayerServlet implements Servlet {
 			String location = request.getParameter(AudioPlayerServlet.location);			
 			try {				
 				if ((location != null) && (!location.equals(""))) {
-					audioPlayerItfService.playAudioLocation(location);
+					audioPlayerItfService.playAudioLocation(new URI(location));
 				}				
 			} catch (NumberFormatException e) {
 				throw new ServletException(e);

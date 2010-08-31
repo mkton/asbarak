@@ -31,8 +31,8 @@ public class AudioPlayerUIImpl implements AudioPlayerUIService {
 		this.alsamixerManager.increaseSoundLevel(AudioPlayerUIImpl.defaultGain);
 	}
 
-	public void playAudioLocation(String location) throws URISyntaxException {
-		vlcManager.play(new URI(location));
+	public void playAudioLocation(URI location) throws URISyntaxException {
+		vlcManager.play(location);
 	}
 	
 }

@@ -38,6 +38,11 @@
   		<artifactId>asbarak-server</artifactId>
   		<version>0.0.2-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.ow2.asbarak.apps.scaudio</groupId>
+  		<artifactId>logic</artifactId>
+  		<version>0.0.2-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
   
   <profiles>

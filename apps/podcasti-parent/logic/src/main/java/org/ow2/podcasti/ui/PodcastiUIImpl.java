@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 
 import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
-import org.ow2.asbarak.audio.VlcManager;
+import org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIService;
 import org.ow2.podcasti.archive.PodcastiArchiveService;
 import org.ow2.podcasti.model.Archive;
 import org.ow2.podcasti.model.Episode;
@@ -34,8 +34,8 @@ public class PodcastiUIImpl implements PodcastiUIService {
 	@Reference(name="podcasti-archives-reference")
 	PodcastiArchiveService archive;
 	
-	@Reference(name="vlc-manager-reference")
-	VlcManager vlc;
+	@Reference(name="scaudio-ui-reference")
+	AudioPlayerUIService scaudio;
 		
 	// we save feed construction, in order to not rebuilt it each time
 	//TODO, create a timer for update it
@@ -152,7 +152,12 @@ public class PodcastiUIImpl implements PodcastiUIService {
 	}
 
 	public void playOnServer(URI podcastLocation) {
-		vlc.play(podcastLocation);
+		try {
+			scaudio.playAudioLocation(podcastLocation);
+		} catch (URISyntaxException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void archive(Integer feedId, Integer episodeId) {
