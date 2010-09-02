@@ -1,3 +1,5 @@
+
+** Description
 asbarak is a great project
 
 asbarak-server)
@@ -5,4 +7,30 @@ asbarak-server)
 
 asbarak-apps)
 	compliant apps
+
+** Requirements :
+maven2
+vlc (opt.)
+alsamixer (opt.)
+
+** Installation :
+
+Actually there is a problem with the maven deployement of FraSCAti specific maven plugins, so you need to manually install those plugins :
+
+svn co svn://svn.forge.objectweb.org/svnroot/frascati/tags/frascati/frascati-1.3/frascati/maven-plugins/
+cd maven-plugins/
+mvn install
+
+Then, you can install the asbarak maven artifacts by running $mvn install at the root of asbarak folder.
+
+If you want the web-gui, you need to create the war :
+- move to apps/podcasti-parent/web-gui/
+- type $mvn -Ppodcasti-war
+- then you can find the podcasti web-gui war file into the target folder, and move it to your application server webapps folder.
+
+Finally, you can move to apps/podcasti-parent/logic/ and run $mvn -Ppodcasti
+
+** Issues :
+
+Because, FraSCAti and the war application are connected trough RMI, you need to configure your java.policy in order to allow Tomcat (for example) for using RMI communications.
 
