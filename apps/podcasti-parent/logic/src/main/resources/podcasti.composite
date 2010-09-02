@@ -67,6 +67,9 @@
       <interface.java interface="org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIService"/>
     </service>
   </component> 
+
+  <wire source="podcasti-archives/podcasti-model-reference" 
+  	target="podcasti-model/podcasti-model-service"/>
   
   <wire source="podcasti-core/podcasti-model-reference" 
   	target="podcasti-model/podcasti-model-service"/>

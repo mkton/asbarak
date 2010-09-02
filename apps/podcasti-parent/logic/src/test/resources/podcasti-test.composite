@@ -3,8 +3,8 @@
   xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
   name="podcasti">
 	  	
-  <service name="podcasti-ui" promote="podcasti-core/podcasti-ui-service"/>
-
+  <service name="podcasti-ui" promote="podcasti-core/podcasti-ui-service" />
+  
   <component name="podcasti-core">  
     <implementation.java class="org.ow2.podcasti.ui.PodcastiUIImpl"/>
     
@@ -16,8 +16,8 @@
     	<interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
     </reference>   
     
-    <reference name="vlc-manager-reference">
-    	<interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    <reference name="scaudio-ui-reference" multiplicity="0..1">
+    	<interface.java interface="org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIService"/>
     </reference>   
     
     <reference name="podcasti-archives-reference">
@@ -29,7 +29,7 @@
   <component name="podcasti-db">  
   	<implementation.java class="org.ow2.podcasti.model.PodcastiDBImpl"/>
   
-  	<property name="db-path">/tmp/podcasti-test.db</property>
+  	<property name="db-path">/tmp/podcasti.db</property>
     
     <service name="podcasti-db-service">
       <interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
@@ -46,7 +46,6 @@
     <reference name="podcasti-db-reference">
     	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
     </reference>
-    
   </component>
     
   <component name="podcasti-archives">  
@@ -56,33 +55,25 @@
   	
   	<service name="podcasti-archives-service">
   		<interface.java interface="org.ow2.podcasti.archive.PodcastiArchiveService" />
-  	</service>  
-  	
-  	<reference name="podcasti-model-reference">
-    	<interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
-    </reference> 	
+  	</service>  	
   </component>
-  
-  <component name="vlc-manager-component">
-    <implementation.java class="org.ow2.asbarak.audio.VlcManagerImpl"/>
+  <!-- 
+  <component name="scaudio-component">
+    <implementation.composite name="scaudio-test.composite"/>
     
-    <service name="vlc-manager-service">
-      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    <service name="scaudio-ui-service">
+      <interface.java interface="org.ow2.asbarak.apps.scaudio.ui.AudioPlayerUIService"/>
     </service>
-    
-    <reference name="os-command-reference">
-      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
-    </reference>
   </component>
   
-  <component name="os-command-component">  
-  	<implementation.java class="org.ow2.asbarak.os.CommandProcessorImpl"/>    
-  		
-  	<service name="os-command-service">
-      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
-    </service>        
-  </component>  
-  
+  <wire source="podcasti-core/scaudio-ui-reference"
+    target="scaudio-component/scaudio-ui-service"/>
+   
+   -->
+   
+  <wire source="podcasti-archives/podcasti-model-reference" 
+  	target="podcasti-model/podcasti-model-service"/>
+   
   <wire source="podcasti-core/podcasti-model-reference" 
   	target="podcasti-model/podcasti-model-service"/>
   	
@@ -91,14 +82,7 @@
 
   <wire source="podcasti-core/podcasti-archives-reference" 
   	target="podcasti-archives/podcasti-archives-service"/>
-  	
-  <wire source="podcasti-archives/podcasti-model-reference" 
-  	target="podcasti-model/podcasti-model-service"/>
-  	
-  <wire source="vlc-manager-component/os-command-reference" 
-    target="os-command-component/os-command-service"/>
     
-  <wire source="podcasti-core/vlc-manager-reference"
-    target="vlc-manager-component/vlc-manager-service"/>
+  
     
 </composite>
