@@ -10,7 +10,10 @@ import java.util.Iterator;
 import org.junit.After;
 import org.junit.Test;
 import org.objectweb.fractal.api.Component;
+import org.objectweb.fractal.api.NoSuchInterfaceException;
 import org.ow2.frascati.FraSCAti;
+import org.ow2.frascati.tinfi.control.content.SCAContentController;
+import org.ow2.frascati.tinfi.control.property.SCAPropertyController;
 import org.ow2.frascati.util.FrascatiException;
 import org.ow2.podcasti.archive.PodcastiArchiveImpl;
 import org.ow2.podcasti.model.Archive;
@@ -25,8 +28,8 @@ public class Podcastest {
 	public static String testFeed3 = "http://radiofrance-podcast.net/podcast09/rss_14864.xml";
 	public static String testFeed2 = "http://jazzandbeyond.podbean.com/feed/";
 	
-	// path for archives
-	public static String archivesPath = "/tmp/podcasti-archives-test/";
+	// path for archives extract from the property value in the composite
+	public String archivesPath;
 	
 	// path to a small file for archive testing
 	public static String filePath = "http://www.google.fr/intl/en_com/images/srpr/logo1w.png";
@@ -34,15 +37,18 @@ public class Podcastest {
 	PodcastiUIService ui;
 	
 	
-	public Podcastest() throws FrascatiException, SecurityException, NoSuchFieldException{
+	public Podcastest() throws FrascatiException, SecurityException, NoSuchFieldException, NoSuchInterfaceException{
 				
 		FraSCAti frascati = FraSCAti.newFraSCAti();
 		
 	    Component composite = frascati.getComposite("podcasti-test");
 	    this.ui = frascati.getService(composite, "podcasti-ui", PodcastiUIService.class);
 	    
-		// we set DB location property for testing	    
-	    // TODO
+		// we set DB location property for testing
+	    SCAPropertyController c = (SCAPropertyController) composite.getFcInterface(SCAPropertyController.NAME);
+	    this.archivesPath = (String) c.getValue("archive-path-composite");
+	       
+	    //SCAContentController a = (SCAContentController) composite.getFcInterface(SCAContentController.NAME);
 	    
 	    // we assert starting with an empty set
 	    this.removeAll();
@@ -124,6 +130,17 @@ public class Podcastest {
 					assertTrue(ep.feedId != null);
 				}
 			}
+			
+			// now we ensure that update is ok
+			// first we modify accessibility of the required fields
+			
+			
+			
+			// at first we change the update period
+			
+			// now we save the last update time
+			
+			// we call the get3last and we ensure that update has been done
 			
 		} catch (Exception e){
 			e.printStackTrace();
