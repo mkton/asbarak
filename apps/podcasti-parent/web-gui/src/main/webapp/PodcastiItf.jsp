@@ -213,8 +213,7 @@
 			      			(HashMap<Feed, HashSet<Episode>>) request.getAttribute(PodcastiServlet.list);
 		
 		                if (list == null) {
-		                	//request.getRequestDispatcher("/podcasti?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
-		                	list = new HashMap<Feed, HashSet<Episode>>();
+		                	request.getRequestDispatcher("/" + PodcastiServlet.servlet_id + "?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
 		                }
 		
 		                // we start the list creation

@@ -50,6 +50,8 @@ public class PodcastiServlet implements Servlet {
 	public static final String main_jsp = "PodcastiItf.jsp";
 	public static final String archives_jsp = "ArchivesItf.jsp";
 	
+	public static final String servlet_id = "podcasti";
+	
 	// the FraSCAti user interface component 
 	private PodcastiUIService ui;
 	
@@ -135,7 +137,7 @@ public class PodcastiServlet implements Servlet {
 			}
 		}
 		
-		request.getRequestDispatcher("/podcasti?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
+		request.getRequestDispatcher("/" + PodcastiServlet.servlet_id + "?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
 	}
 	
 	public static String createFormAsLink(String action, String label, HashMap<String, String> attrs){
