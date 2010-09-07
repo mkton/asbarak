@@ -241,8 +241,7 @@
 		                        		PodcastiServlet.remove,
 		                        		"remove",
 		                        		remAttr);
-		                        
-		                        
+		                        		                        
 		                      	// ret += ret += PodcastiServlet.createFormAsLink(
 		                        //		PodcastiServlet.archives,		                        		
 		                        //		"archives",

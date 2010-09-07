@@ -42,6 +42,8 @@ public class AudioPlayerServlet implements Servlet {
 	 */
 	public static final String main = "AudioPlayerItf.jsp";
 	
+	public static final String servlet_id = "scaudio";
+	
 	private AudioPlayerUIService audioPlayerItfService;
 	
 	public void destroy() {
@@ -104,7 +106,9 @@ public class AudioPlayerServlet implements Servlet {
 			
 		}
 		
-		request.getRequestDispatcher("/scaudio?" + AudioPlayerServlet.action + "=" + AudioPlayerServlet.index).forward(request, response);
+		request.getRequestDispatcher("/" + AudioPlayerServlet.servlet_id + 
+				"?" + AudioPlayerServlet.action + 
+				"=" + AudioPlayerServlet.index).forward(request, response);
 	}
 	
 	public static String createFormAsLink(String action, String label, HashMap<String, String> attrs){
