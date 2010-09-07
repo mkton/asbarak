@@ -5,6 +5,10 @@
 	  	
   <service name="podcasti-ui" promote="podcasti-core/podcasti-ui-service" />
   
+  <property name="archives-path-composite">
+  	/tmp/podcasti-archives-test/
+  </property>
+  
   <component name="podcasti-core">  
     <implementation.java class="org.ow2.podcasti.ui.PodcastiUIImpl"/>
     
@@ -51,8 +55,8 @@
   <component name="podcasti-archives">  
   	<implementation.java class="org.ow2.podcasti.archive.PodcastiArchiveImpl" />
   
-  	<property name="archives-path">/tmp/podcasti-archives-test/</property>
-  	
+  	<property name="archives-path" source="$archives-path-composite" />
+  		  	
   	<service name="podcasti-archives-service">
   		<interface.java interface="org.ow2.podcasti.archive.PodcastiArchiveService" />
   	</service>  	
