@@ -47,8 +47,12 @@ public class Podcastest {
 		// we set DB location property for testing
 	    SCAPropertyController c = (SCAPropertyController) composite.getFcInterface(SCAPropertyController.NAME);
 	    this.archivesPath = (String) c.getValue("archive-path-composite");
-	       
-	    //SCAContentController a = (SCAContentController) composite.getFcInterface(SCAContentController.NAME);
+	    	    
+	    System.out.println(archivesPath);
+	   // SCAContentController a = (SCAContentController) composite.getFcInterface(SCAContentController.NAME);
+	    for (Object o : composite.getFcInterfaces()){
+	    	System.out.println(o.toString());
+	    }
 	    
 	    // we assert starting with an empty set
 	    this.removeAll();

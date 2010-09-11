@@ -33,6 +33,12 @@
 	</build>
 	
 	<dependencies>
+   <dependency>
+	<groupId>com.googlecode.gstreamer-java</groupId>
+  	<artifactId>gstreamer-java</artifactId>
+<version>1.4</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.ow2.frascati</groupId>
 			<artifactId>frascati-runtime-factory</artifactId>
@@ -46,4 +52,15 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+ <distributionManagement>
+
+    <repository> 
+      <id>sonatype-nexus-staging</id> 
+      <name>Nexus Release Repository</name> 
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url> 
+    </repository> 
+ </distributionManagement>
+
+
 </project>
