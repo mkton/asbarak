@@ -1,0 +1,5 @@
+web gui need auth
+ask for auth
+when auth redirect to component with the user name
+return the user informations
+display the user informations on the web-gui

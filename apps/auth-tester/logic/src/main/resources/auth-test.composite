@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  name="auth-test">
+	  	
+  <service name="auth-test" promote="auth-test-component/auth-test-service"/>
+  <service name="auth-manager" promote="auth-manager-component/auth-manager-service"/>
+
+  <component name="auth-test-component">  
+    <implementation.java class="org.ow2.asbarak.apps.authtest.AuthTestAdaptorImpl"/>
+    
+    <service name="auth-test-service">
+      <interface.java interface="org.ow2.asbarak.apps.authtest.AuthTestAdaptorService"/>
+    </service>
+      
+    <reference name="podcasti-archives-reference">
+    	<interface.java 
+    		interface="org.ow2.podcasti.archive.PodcastiArchiveService"/>
+    </reference>          
+  </component>
+  
+  <component name="auth-manager-component">  
+  	<implementation.java class="org.ow2.asbarak.apps.authtest.AuthTestAdaptorImpl"/>
+    
+    <service name="auth-test-service">
+      <interface.java interface="org.ow2.asbarak.apps.authtest.AuthTestAdaptorService"/>
+    </service>
+    
+    
+  </component>
+  
+  <component name="user-manager">
+  	
+  </component>
+  
+  
+  <wire source="podcasti-core/podcasti-archives-reference" 
+  	target="podcasti-archives/podcasti-archives-service"/>
+    
+  <wire source="podcasti-core/scaudio-ui-reference"
+    target="scaudio-component/scaudio-ui-service"/>
+    
+</composite>
