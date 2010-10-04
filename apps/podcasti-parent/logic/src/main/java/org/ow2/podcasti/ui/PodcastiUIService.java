@@ -19,7 +19,9 @@ public interface PodcastiUIService {
 	
 	public void removeFeed(Integer feedId);
 	
-	public HashSet<Episode> get3Last(Integer feedId);	
+	public HashSet<Episode> get3Last(Integer feedId);
+	
+	public void updateFeed(Integer feedId);	
 	
 	public void playOnServer(URI podcastLocation);
 	

@@ -215,9 +215,13 @@
 		                if (list == null) {
 		                	request.getRequestDispatcher("/" + PodcastiServlet.servlet_id + "?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
 		                }
-		
+	
 		                // we start the list creation
 		                String ret = "<ul>\n";
+		                
+		                if (list == null) {
+		                	list = new HashMap<Feed, HashSet<Episode>>();
+		                }		                
 		                
 						Feed feed;
 						HashSet<Episode> episodes;
@@ -241,7 +245,12 @@
 		                        		PodcastiServlet.remove,
 		                        		"remove",
 		                        		remAttr);
-		                        		                        
+		                        
+		                        ret += PodcastiServlet.createFormAsLink(
+		                        		PodcastiServlet.update,
+		                        		"update",
+		                        		remAttr);
+		                        
 		                      	// ret += ret += PodcastiServlet.createFormAsLink(
 		                        //		PodcastiServlet.archives,		                        		
 		                        //		"archives",

@@ -29,6 +29,7 @@ public class PodcastiServlet implements Servlet {
 	public static final String archives = "archives";
 	public static final String archive = "archive";
 	public static final String play = "play";
+	public static final String update = "update";
 	
 	/*
 	 * Action parameters
@@ -70,9 +71,10 @@ public class PodcastiServlet implements Servlet {
 	}	
 	
 	public HashMap<Feed, HashSet<Episode>> createList(){
-		HashMap<Feed, HashSet<Episode>> ret = new HashMap<Feed, HashSet<Episode>>(); 
-		
+		HashMap<Feed, HashSet<Episode>> ret = new HashMap<Feed, HashSet<Episode>>();
+
 		HashSet<Feed> feeds = ui.getFeeds();
+		
 		HashSet<Episode> episodes;
 		for (Feed feed : feeds){
 			episodes = ui.get3Last(feed.id);
@@ -135,6 +137,11 @@ public class PodcastiServlet implements Servlet {
 			} catch (URISyntaxException e) {
 				request.setAttribute(PodcastiServlet.error, "This is is not a valid URI : " + location);
 			}
+		}
+		
+		if ( action.equals(PodcastiServlet.update)) {
+			String feedId = request.getParameter(PodcastiServlet.feedId);
+			ui.updateFeed(Integer.parseInt(feedId));
 		}
 		
 		request.getRequestDispatcher("/" + PodcastiServlet.servlet_id + "?" + PodcastiServlet.action + "=" + PodcastiServlet.getList).forward(request, response);
