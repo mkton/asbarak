@@ -115,7 +115,11 @@ public class PodcastiUIImpl implements PodcastiUIService {
 		}
 	}
 	
-	private void updateFeed(Integer feedId) {
+	public void updateFeed(Integer feedId){
+		this.updateFeed(feedId, 3);
+	}
+	
+	private void updateFeed(Integer feedId, Integer number) {
 
 		LinkedHashSet<Episode> eps = new LinkedHashSet<Episode>();
 		try {
@@ -125,7 +129,7 @@ public class PodcastiUIImpl implements PodcastiUIService {
 			SyndFeed feed;
 			feed = input.build(new XmlReader(address.toURL()));
 
-			int i = 3;
+			int i = number;
 			SyndEntry sEntry;
 			Episode ep;
 			URI uri;
@@ -151,6 +155,8 @@ public class PodcastiUIImpl implements PodcastiUIService {
 						// some people mix their RSS feeds between podcast 
 						// and other things
 						// we just ignore those episodes
+						// so we re-inc the iterator
+						i++;
 					}
 
 				} catch (URISyntaxException e) {
