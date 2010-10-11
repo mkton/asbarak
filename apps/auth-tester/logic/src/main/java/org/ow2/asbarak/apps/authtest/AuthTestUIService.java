@@ -5,4 +5,6 @@ import org.osoa.sca.annotations.Service;
 @Service
 public interface AuthTestUIService {
 	public String getUserInformations(Integer id);
+	
+	public Integer checkIdentity(String login, String pwd);
 }

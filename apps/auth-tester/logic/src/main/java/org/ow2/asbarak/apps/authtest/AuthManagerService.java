@@ -8,6 +8,5 @@ public interface AuthManagerService {
 	public AsbarakSession createSession(String login, String password);
 	
 	public AsbarakSession getSession(long token);
-	
-	
+		
 }

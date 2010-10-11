@@ -15,13 +15,7 @@ alsamixer (opt.)
 
 ** Installation :
 
-Actually there is a problem with the maven deployement of FraSCAti specific maven plugins, so you need to manually install those plugins :
-
-svn co svn://svn.forge.objectweb.org/svnroot/frascati/tags/frascati/frascati-1.3/frascati/maven-plugins/
-cd maven-plugins/
-mvn install
-
-Then, you can install the asbarak maven artifacts by running $mvn install at the root of asbarak folder.
+You can install the asbarak maven artifacts by running $mvn install at the root of asbarak folder.
 
 If you want the web-gui, you need to create the war :
 - move to apps/podcasti-parent/web-gui/

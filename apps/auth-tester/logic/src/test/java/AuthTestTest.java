@@ -17,7 +17,7 @@ public class AuthTestTest {
 		FraSCAti frascati = FraSCAti.newFraSCAti();
 			
 		// we create the component assembly
-		Component composite = frascati.getComposite("auth-test-composite");
+		Component composite = frascati.getComposite("auth-test.composite");
 		
 		// and retrieve the components we need
 		this.authManager = frascati.getService(composite, "auth-manager", AuthManagerService.class);

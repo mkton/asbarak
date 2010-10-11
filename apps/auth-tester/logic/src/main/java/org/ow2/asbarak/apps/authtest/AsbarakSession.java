@@ -26,6 +26,6 @@ public class AsbarakSession {
 	public boolean isStillValid(){
 		long expiration = creationTime.getTime() +
 							AsbarakSession.SESSION_VALIDITY;		
-		return ( expiration < (new Date()).getTime());
+		return ( expiration > (new Date()).getTime());
 	}
 }
