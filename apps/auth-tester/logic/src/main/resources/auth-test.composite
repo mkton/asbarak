@@ -14,9 +14,6 @@
 				interface="org.ow2.asbarak.apps.authtest.AuthTestAdaptorService" />
 		</service>
 
-		<reference name="auth-manager-reference">
-			<interface.java interface="org.ow2.asbarak.apps.authtest.AuthManagerService" />
-		</reference>
 		<reference name="user-reference">
 			<interface.java interface="org.ow2.asbarak.apps.authtest.AuthTestUIService" />
 		</reference>
@@ -39,10 +36,14 @@
 		<service name="user-service">
 			<interface.java interface="org.ow2.asbarak.apps.authtest.AuthTestUIService" />
 		</service>
+		
+		<reference name="auth-manager-reference">
+			<interface.java interface="org.ow2.asbarak.apps.authtest.AuthManagerService" />
+		</reference>
 	</component>
 
 
-	<wire source="auth-test-component/auth-manager-reference" target="auth-manager-component/auth-manager-service" />
+	<wire source="user-component/auth-manager-reference" target="auth-manager-component/auth-manager-service" />
 	<wire source="auth-test-component/user-reference" target="user-component/user-service" />
 	<wire source="auth-manager-component/user-reference" target="user-component/user-service" />
 </composite>

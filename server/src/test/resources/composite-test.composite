@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" name="composite-test">
+
+	<service name="component-test-service" promote="component-test/component-test-service" />
+	<reference name="os-command-reference" promote="component-test/os-command-reference" />
+
+	<component name="component-test">
+		<implementation.java class="org.ow2.asbarak.test.ComponentTestImpl" />
+
+		<service name="component-test-service">
+			<interface.java interface="org.ow2.asbarak.test.ComponentTestService" />
+		</service>
+
+		<reference name="os-command-reference">
+			<interface.java interface="org.ow2.asbarak.os.CommandProcessorService" />
+		</reference>
+	</component>
+
+</composite>

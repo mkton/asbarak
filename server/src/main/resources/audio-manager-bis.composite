@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" 
+	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" 
+	xmlns:frascati-upnp="http://frascati.ow2.org/xmlns/upnp/1.0"
+	name="audio-manager">
+
+  <service name="audio-player-service" promote="audio-player-component/audio-player-service"/>
+
+  <reference name="os-command-vlc" promote="vlc-manager-component/os-command-service"/>
+  <reference name="os-command-alsamixer" promote="alsamixer-manager-component/os-command-service"/>
+  
+  <component name="audio-player-component">
+    <implementation.java class="org.ow2.asbarak.audio.AudioPlayerImpl"/>
+    <service name="audio-player-service">
+      <interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
+    </service>
+    <reference name="vlc-manager-service">
+      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    </reference>
+    <reference name="alsamixer-manager-service">
+      <interface.java interface="org.ow2.asbarak.audio.AlsamixerManager"/>
+    </reference>
+  </component>
+  
+  <component name="vlc-manager-component">
+    <implementation.java class="org.ow2.asbarak.audio.VlcManagerImpl"/>
+    <service name="vlc-manager-service">
+      <interface.java interface="org.ow2.asbarak.audio.VlcManager"/>
+    </service>
+    <reference name="os-command-service">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>
+  </component>
+  
+  <component name="alsamixer-manager-component">
+    <implementation.java class="org.ow2.asbarak.audio.AlsamixerManagerImpl"/>
+    <service name="alsamixer-manager-service">
+      <interface.java interface="org.ow2.asbarak.audio.AlsamixerManager"/>
+    </service>
+    <reference name="os-command-service">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>
+  </component>
+  
+  <wire source="audio-player-component/vlc-manager-service" target="vlc-manager-component/vlc-manager-service"/>
+  <wire source="audio-player-component/alsamixer-manager-service" target="alsamixer-manager-component/alsamixer-manager-service"/>
+  
+</composite>

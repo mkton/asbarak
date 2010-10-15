@@ -1,7 +1,10 @@
 package org.ow2.asbarak.apps.authtest;
 
-import org.ow2.frascati.tinfi.control.intent.IntentHandler;
-import org.ow2.frascati.tinfi.control.intent.IntentJoinPoint;
+import javax.security.auth.Subject;
+
+import org.ow2.frascati.tinfi.SecuritySubjectManager;
+import org.ow2.frascati.tinfi.api.IntentHandler;
+import org.ow2.frascati.tinfi.api.IntentJoinPoint;
 
 public class AuthIntent implements IntentHandler {
 
@@ -9,7 +12,10 @@ public class AuthIntent implements IntentHandler {
 		// here !
 		// remember @Context
 		// security provider / security controller / security subject
-		ijp.getComponentContext().getRequestContext().getSecuritySubject();
+		//ContentController cc;
+		//ComponentContext cc;
+		//ijp.getComponent().  getRequestContext().getSecuritySubject();
+		//Subject s = SecuritySubjectsManager.get().getSecuritySubject();
 		return null;
 	}
 	

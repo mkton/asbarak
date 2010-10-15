@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" 
+	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" 
+	xmlns:res="src/main/resources"
+	name="asbarak">
+
+  <service name="audio-player-service" promote="audio-manager/audio-player-service"/>
+  <service name="os-command-service" promote="os-command-component/os-command-service"/>
+  <service name="deployer-service" promote="deployer/deployer-service"/>
+  <service name="asbarak-registry-service" promote="asbarak-registry/asbarak-registry-service"/>
+  <service name="application-registry-service" promote="application-registry/application-registry-service"/>
+  
+  <component name="asbarak-registry">
+  	<implementation.java class="org.ow2.asbarak.registry.AsbarakRegistryImpl"/>
+  	
+  	<service name="asbarak-registry-service">
+  		<interface.java interface="org.ow2.asbarak.registry.AsbarakRegistryService"/>
+  	</service>
+  	
+  	<reference name="os-command-reference">
+  		<interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+  	</reference>  
+  </component>
+  
+  <component name="application-registry">
+  	<implementation.java class="org.ow2.asbarak.registry.ApplicationRegistryImpl"/>
+  	
+  	<service name="application-registry-service">
+  		<interface.java interface="org.ow2.asbarak.registry.ApplicationRegistryService"/>
+  	</service>
+  </component>
+  
+  <component name="deployer">
+  	<implementation.java class="org.ow2.asbarak.deployer.AsbarakDeployerImpl"/>
+  	
+  	<service name="deployer-service">
+  		<interface.java interface="org.ow2.asbarak.deployer.AsbarakDeployerService"/>
+  	</service>
+  	
+  	<reference name="asbarak-registry-reference">
+  		<interface.java interface="org.ow2.asbarak.registry.AsbarakRegistryService"/>
+  	</reference>
+  	<reference name="application-registry-reference">
+  		<interface.java interface="org.ow2.asbarak.registry.ApplicationRegistryService"/>
+  	</reference>
+  </component>
+
+  <component name="os-command-component">  
+  	<implementation.java class="org.ow2.asbarak.os.CommandProcessorImpl"/>    	
+  	
+  	<service name="os-command-service">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </service>
+  </component>
+  
+  <component name="audio-manager">
+    <implementation.composite name="res:audio-manager-bis.composite"/>
+    
+    <service name="audio-player-service">
+      <interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
+    </service>
+    
+    <reference name="os-command-vlc">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>    
+    <reference name="os-command-alsamixer">
+      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
+    </reference>    
+  </component>
+  
+  <wire source="audio-manager/os-command-vlc" target="os-command-component/os-command-service"/>
+  <wire source="audio-manager/os-command-alsamixer" target="os-command-component/os-command-service"/>
+  
+  <wire source="asbarak-registry/os-command-reference" target="os-command-component/os-command-service"/>
+  
+  <wire source="deployer/asbarak-registry-reference" target="asbarak-registry/asbarak-registry-service"/>
+  <wire source="deployer/application-registry-reference" target="application-registry/application-registry-service"/>
+</composite>
