@@ -13,4 +13,6 @@ public interface ApplicationRegistryService {
 	
 	public Component getProviderFor(Class<?> clazz);
 	
+	public Component getApplication(String compositeName) throws Exception;
+	
 }

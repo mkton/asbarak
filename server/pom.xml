@@ -16,4 +16,26 @@
 
 	<name>AsbaraK server</name>
 
+	<profiles>
+		<profile>
+	      <id>main</id>
+	      <build>
+	        <defaultGoal>exec:exec</defaultGoal>
+	        <plugins>
+	          <plugin>
+	            <groupId>org.codehaus.mojo</groupId>
+	            <artifactId>exec-maven-plugin</artifactId>
+	            <configuration>
+	              <executable>java</executable>
+	              <arguments>
+	                <argument>-cp</argument>
+	                <classpath />
+	                <argument>org.ow2.asbarak.bootstrap.AsbarakBootstrap</argument>
+	              </arguments>
+	            </configuration>
+	          </plugin>
+	        </plugins>
+	      </build>	
+	    </profile>
+	</profiles>
 </project>

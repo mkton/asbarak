@@ -32,7 +32,7 @@ public class GeneralTest {
 			// we assert that it has been plug to the os-command
 			ComponentTestService test = asbarak.getFraSCAti().getService(testComp, "component-test-service", ComponentTestService.class);
 			
-			assertTrue(test.test()!= null);			
+			assertTrue(test.test()!= null);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

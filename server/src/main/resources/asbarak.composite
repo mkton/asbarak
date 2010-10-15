@@ -10,6 +10,8 @@
   <service name="asbarak-registry-service" promote="asbarak-registry/asbarak-registry-service"/>
   <service name="application-registry-service" promote="application-registry/application-registry-service"/>
   
+  <reference name="composite-manager" promote="deployer/composite-manager-reference"/>
+  
   <component name="asbarak-registry">
   	<implementation.java class="org.ow2.asbarak.registry.AsbarakRegistryImpl"/>
   	
@@ -40,6 +42,9 @@
   		<interface.java interface="org.ow2.asbarak.deployer.AsbarakDeployerService"/>
   	</service>
   	
+  	<reference name="composite-manager-reference">
+  		<interface.java interface="org.ow2.frascati.assembly.factory.api.CompositeManager"/>
+  	</reference>
   	<reference name="asbarak-registry-reference">
   		<interface.java interface="org.ow2.asbarak.registry.AsbarakRegistryService"/>
   	</reference>

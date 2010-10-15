@@ -16,6 +16,9 @@ public class AsbarakBootstrap {
 	 */
 	public static void main(String[] args) throws IllegalBindingException, IllegalLifeCycleException {
 		try {
+			
+			System.out.println("Launching Asbarak server ...");
+			
 			Asbarak asbarak = new Asbarak();
 			
 			AsbarakDeployerService deployer = asbarak.getDeployer();
@@ -24,11 +27,19 @@ public class AsbarakBootstrap {
 				deployer.deploy(arg);
 			}
 			
+			System.out.println("Asbarak is now running");
+			
+			
+			//new Launcher()
+			
+			Thread.yield();
+			//Thread.currentThread().wait();
+			
 		} catch (FrascatiException e) {
 			e.printStackTrace();
 		} catch (NoSuchInterfaceException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 }

@@ -22,13 +22,22 @@ public class ApplicationRegistryImpl implements ApplicationRegistryService {
 	}
 
 	public void unregisterApplication(String compositeName) {
-		// TODO Auto-generated method stub
-
+		if (applications.containsKey(compositeName))
+			applications.remove(compositeName);
 	}
 
 	public Component getProviderFor(Class<?> clazz) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Component getApplication(String compositeName) throws Exception {
+		
+		if (applications.containsKey(compositeName))
+			return applications.get(compositeName);
+		else 
+			//TODO create specific exception
+			throw new Exception(compositeName + " does not exist");
 	}
 
 }

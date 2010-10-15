@@ -2,6 +2,10 @@ package org.ow2.asbarak;
 
 import org.objectweb.fractal.api.Component;
 import org.objectweb.fractal.api.NoSuchInterfaceException;
+import org.objectweb.fractal.api.control.BindingController;
+import org.objectweb.fractal.api.control.IllegalBindingException;
+import org.objectweb.fractal.api.control.IllegalLifeCycleException;
+import org.objectweb.fractal.api.control.LifeCycleController;
 import org.ow2.asbarak.deployer.AsbarakDeployerService;
 import org.ow2.asbarak.registry.ApplicationRegistryService;
 import org.ow2.asbarak.registry.AsbarakRegistryService;
@@ -15,7 +19,7 @@ public class Asbarak {
 	AsbarakRegistryService asbarakRegistry;
 	ApplicationRegistryService applicationRegistry;
 		
-	public Asbarak() throws FrascatiException, NoSuchInterfaceException{
+	public Asbarak() throws FrascatiException, NoSuchInterfaceException, IllegalBindingException, IllegalLifeCycleException{
 		
 		// we start FraSCAti
 		this.frascati = FraSCAti.newFraSCAti();
@@ -25,40 +29,15 @@ public class Asbarak {
 		
 		// we retrieve the deployer
 		this.deployer = frascati.getService(asbarak, "deployer-service", AsbarakDeployerService.class);
-		
-		
-		//asbarak.getFcInterface(ContentController)
-		/*Object[] objs = asbarak.getFcInterfaces();
-		for (Object o : objs){
-			System.out.println(o.getClass().getSimpleName());
-		}
-		ContentController cc = (ContentController) asbarak.getFcInterface("content-controller");
-		for (Component c : cc.getFcSubComponents()){
-			NameController nc = (NameController) c.getFcInterface("name-controller");
-			if (nc.getFcName().equals("deployer"))
 				
-		}*/
+		// and we set the deployer reference to the FraSCAti composite manager
+		LifeCycleController lc = (LifeCycleController) asbarak.getFcInterface("lifecycle-controller");
+		lc.stopFc();
 		
-		//ContentController cc;
-		//cc.
+		BindingController bc = (BindingController) asbarak.getFcInterface("binding-controller");
+		bc.bindFc("composite-manager", frascati.getCompositeManager());
 		
-		// and we set the deployer reference to FraSCAti
-		this.deployer.setCompositeManager(frascati.getCompositeManager());
-		
-		//asbarak.getFcInterface("");
-		// ...
-		
-	/*	
-		// now we retrieve the asbarak registry
-		this.asbarakRegistry = frascati.getService(asbarak, "asbarak-registry-service", AsbarakRegistryService.class);
-		
-		// and the application registry
-		this.applicationRegistry = frascati.getService(asbarak, "application-registry-service", ApplicationRegistryService.class);
-		*/
-		// now the Asbarak platform has been started and is now able to deploy 
-		// applications
-		
-		
+		lc.startFc();
 	}
 	
 	public FraSCAti getFraSCAti(){
@@ -68,12 +47,4 @@ public class Asbarak {
 	public AsbarakDeployerService getDeployer(){
 		return this.deployer;
 	}
-	/*
-	public AsbarakRegistryService getAsbarakRegistry(){
-		return this.asbarakRegistry;
-	}
-	
-	public ApplicationRegistryService getApplicationRegistry(){
-		return this.applicationRegistry;
-	}*/
 }

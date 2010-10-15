@@ -19,12 +19,9 @@ public class AsbarakDeployerImpl implements AsbarakDeployerService {
 	
 	@Reference(name="asbarak-registry-reference")
 	AsbarakRegistryService asbarakRegistry;
-	
-	private CompositeManager compositeManager;
 
-	public void setCompositeManager(CompositeManager cm){
-		this.compositeManager = cm;
-	}
+	@Reference(name="composite-manager-reference")
+	CompositeManager compositeManager;
 	
 	public Component deploy(String composite) throws ManagerException, NoSuchInterfaceException, IllegalBindingException, IllegalLifeCycleException {
 		Component component = this.compositeManager.getComposite(composite);
@@ -34,6 +31,16 @@ public class AsbarakDeployerImpl implements AsbarakDeployerService {
 		this.applicationRegistry.registerApplication(component);
 		
 		return component;
+	}
+
+	public void undeploy(String compositeName) throws Exception {
+		
+		Component application = this.applicationRegistry.getApplication(compositeName);
+		
+		compositeManager.removeComposite(compositeName);
+		
+		this.applicationRegistry.unregisterApplication(compositeName);
+		
 	}
 
 }
