@@ -26,7 +26,7 @@ public class GeneralTest {
 	public void testDeploy() {
 
 		try {
-			// we we test the deployment of a composite
+			// we test the deployment of a composite
 			Component testComp = this.asbarak.getDeployer().deploy("composite-test");
 			
 			// we assert that it has been plug to the os-command

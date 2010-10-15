@@ -16,7 +16,10 @@
   	<service name="asbarak-registry-service">
   		<interface.java interface="org.ow2.asbarak.registry.AsbarakRegistryService"/>
   	</service>
-  	
+  	  	
+  	<reference name="audio-player-reference">
+  		<interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
+  	</reference>  	
   	<reference name="os-command-reference">
   		<interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
   	</reference>  
@@ -71,8 +74,12 @@
   <wire source="audio-manager/os-command-vlc" target="os-command-component/os-command-service"/>
   <wire source="audio-manager/os-command-alsamixer" target="os-command-component/os-command-service"/>
   
+  <!-- Asbarak Registry wires -->
   <wire source="asbarak-registry/os-command-reference" target="os-command-component/os-command-service"/>
+  <wire source="asbarak-registry/audio-player-reference" target="audio-manager/audio-player-service"/>
   
+  <!-- Asbarak Deployer wires -->
   <wire source="deployer/asbarak-registry-reference" target="asbarak-registry/asbarak-registry-service"/>
   <wire source="deployer/application-registry-reference" target="application-registry/application-registry-service"/>
+  
 </composite>
