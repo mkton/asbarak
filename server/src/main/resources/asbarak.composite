@@ -4,9 +4,12 @@
 	xmlns:res="src/main/resources"
 	name="asbarak">
 
-  <service name="audio-player-service" promote="audio-manager/audio-player-service"/>
+  <service name="audio-player-service" promote="audio-manager/audio-player-service" />
   <service name="os-command-service" promote="os-command-component/os-command-service"/>
-  <service name="deployer-service" promote="deployer/deployer-service"/>
+  <service name="deployer-service" promote="deployer/deployer-service">
+  	<frascati:binding.jsonrpc uri="http://localhost:9001/JSON-RPC/AsbarakDeployer"/>
+  	<frascati:binding.rest uri="http://localhost:9000/REST/AsbarakDeployer"/>
+  </service>
   <service name="asbarak-registry-service" promote="asbarak-registry/asbarak-registry-service"/>
   <service name="application-registry-service" promote="application-registry/application-registry-service"/>
   

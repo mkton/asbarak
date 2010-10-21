@@ -8,6 +8,7 @@ import org.objectweb.fractal.api.Component;
 import org.objectweb.fractal.api.control.ContentController;
 import org.ow2.asbarak.Asbarak;
 import org.ow2.asbarak.test.ComponentTestService;
+import org.ow2.frascati.FraSCAti;
 
 public class GeneralTest {
 
@@ -15,7 +16,8 @@ public class GeneralTest {
 
 	public GeneralTest() {
 		try {
-			this.asbarak = new Asbarak();
+			
+			this.asbarak = new Asbarak(FraSCAti.newFraSCAti());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

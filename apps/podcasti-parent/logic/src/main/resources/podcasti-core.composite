@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  name="podcasti">
+	  	
+  <service name="podcasti-ui" promote="podcasti-core/podcasti-ui-service">
+  	<frascati:binding.rmi host="localhost" serviceName="podcasti-rmi-service" port="1099"/>
+  </service>
+  
+  <reference name="audio-player-reference" promote="podcasti-core/audio-player-reference"/>
+
+  <component name="podcasti-core">  
+    <implementation.java class="org.ow2.podcasti.ui.PodcastiUIImpl"/>
+    
+    <service name="podcasti-ui-service">
+      <interface.java interface="org.ow2.podcasti.ui.PodcastiUIService"/>
+    </service>
+    
+    <reference name="podcasti-model-reference">
+    	<interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
+    </reference>   
+    
+    <reference name="audio-player-reference">
+    	<interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
+    </reference>   
+    
+    <reference name="podcasti-archives-reference">
+    	<interface.java 
+    		interface="org.ow2.podcasti.archive.PodcastiArchiveService"/>
+    </reference>          
+  </component>
+  
+  <component name="podcasti-db">  
+  	<implementation.java class="org.ow2.podcasti.model.PodcastiDBImpl"/>
+  
+  	<property name="db-path">/tmp/podcasti.db</property>
+    
+    <service name="podcasti-db-service">
+      <interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
+    </service>    
+  </component>
+  
+  <component name="podcasti-model">  
+  	<implementation.java class="org.ow2.podcasti.model.PodcastiModelImpl"/>
+    
+    <service name="podcasti-model-service">
+      <interface.java interface="org.ow2.podcasti.model.PodcastiModelService"/>
+    </service>    
+    
+    <reference name="podcasti-db-reference">
+    	<interface.java interface="org.ow2.podcasti.model.PodcastiDBService"/>
+    </reference>
+  </component>
+    
+  <component name="podcasti-archives">  
+  	<implementation.java class="org.ow2.podcasti.archive.PodcastiArchiveImpl" />
+  
+  	<property name="archives-path">/tmp/podcasti-archives/</property>
+  	
+  	<service name="podcasti-archives-service">
+  		<interface.java interface="org.ow2.podcasti.archive.PodcastiArchiveService" />
+  	</service>  	
+  </component>
+
+  <wire source="podcasti-archives/podcasti-model-reference" 
+  	target="podcasti-model/podcasti-model-service"/>
+  
+  <wire source="podcasti-core/podcasti-model-reference" 
+  	target="podcasti-model/podcasti-model-service"/>
+  	
+  <wire source="podcasti-model/podcasti-db-reference" 
+  	target="podcasti-db/podcasti-db-service"/>
+
+  <wire source="podcasti-core/podcasti-archives-reference" 
+  	target="podcasti-archives/podcasti-archives-service"/>
+    
+</composite>

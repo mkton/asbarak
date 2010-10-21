@@ -1,6 +1,6 @@
 package org.ow2.asbarak.audio;
 
-import java.net.URISyntaxException;
+import java.net.URI;
 
 import org.osoa.sca.annotations.Service;
 
@@ -9,7 +9,7 @@ public interface AudioPlayerItfService {
 	
 	// audio player features provided by interface
 	
-	public void playAudioLocation(String location) throws URISyntaxException; 
+	public void playAudioLocation(URI location); 
 		
 	public void increaseSoundLevel();
 	

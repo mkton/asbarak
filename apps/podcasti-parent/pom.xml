@@ -17,6 +17,7 @@
 	<modules>
 		<module>web-gui</module>
 		<module>logic</module>
+		<module>podcasti-contribution</module>
 	</modules>
 
 	<build>

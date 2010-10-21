@@ -1,7 +1,6 @@
 package org.ow2.asbarak.audio;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
@@ -29,8 +28,8 @@ public class AudioPlayerImpl implements AudioPlayerItfService {
 		this.alsamixerManager.increaseSoundLevel(AudioPlayerImpl.defaultGain);
 	}
 
-	public void playAudioLocation(String location) throws URISyntaxException {
-		vlcManager.play(new URI(location));
+	public void playAudioLocation(URI location) {
+		vlcManager.play(location);
 	}
 	
 }

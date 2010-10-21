@@ -16,26 +16,85 @@
 
 	<name>AsbaraK server</name>
 
+	<dependencies>
+		<!-- Apache IO for file copy -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+			<type>jar</type>
+		</dependency>
+
+		<!-- OW2 FraSCAti JSON-RPC Binding. -->
+		<dependency>
+			<groupId>org.ow2.frascati</groupId>
+			<artifactId>frascati-binding-jsonrpc</artifactId>
+			<version>${frascati.version}</version>
+		</dependency>
+
+		<!-- OW2 FraSCAti REST Binding. -->
+		<dependency>
+			<groupId>org.ow2.frascati</groupId>
+			<artifactId>frascati-binding-rest</artifactId>
+			<version>${frascati.version}</version>
+		</dependency>
+		
+		<!-- OW2 FraSCAti RMI Binding. -->
+		<dependency>
+			<groupId>org.ow2.frascati</groupId>
+			<artifactId>frascati-binding-rmi</artifactId>
+			<version>${frascati.version}</version>
+		</dependency>
+	</dependencies>
+
 	<profiles>
 		<profile>
-	      <id>main</id>
-	      <build>
-	        <defaultGoal>exec:exec</defaultGoal>
-	        <plugins>
-	          <plugin>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>exec-maven-plugin</artifactId>
-	            <configuration>
-	              <executable>java</executable>
-	              <arguments>
-	                <argument>-cp</argument>
-	                <classpath />
-	                <argument>org.ow2.asbarak.bootstrap.AsbarakBootstrap</argument>
-	              </arguments>
-	            </configuration>
-	          </plugin>
-	        </plugins>
-	      </build>	
-	    </profile>
+			<id>main</id>
+			<build>
+				<defaultGoal>exec:exec</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<executable>java</executable>
+							<arguments>
+								<argument>-cp</argument>
+								<classpath />
+								<argument>org.ow2.asbarak.bootstrap.AsbarakBootstrap</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<dependencies>
+				<!-- here FraSCAti Explorer is put in the classpath. -->
+				<dependency>
+					<groupId>org.ow2.frascati</groupId>
+					<artifactId>frascati-explorer-core</artifactId>
+					<version>1.3</version>
+				</dependency>
+			</dependencies>
+			<id>explorer</id>
+			<build>
+				<defaultGoal>exec:java</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>org.ow2.frascati.explorer.FrascatiExplorerLauncher</mainClass>
+							<arguments>
+								<argument>asbarak</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
 </project>

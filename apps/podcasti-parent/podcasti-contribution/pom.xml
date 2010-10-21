@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.ow2.asbarak.apps.podcasti</groupId>
+		<artifactId>podcasti-parent</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.ow2.podcasti</groupId>
+	<artifactId>podcasti-contribution</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+
+	<name>Podcasti contribution</name>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>org.ow2.frascati.mojo</groupId>
+				<artifactId>frascati-contribution-plugin</artifactId>
+				<version>1.4-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>frascati-contribution</id>
+						<phase>package</phase>
+						<goals>
+							<goal>install</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<deployables>
+						<deployable>podcasti-core.composite</deployable>
+					</deployables>
+					<excludeGroups>
+						<argument>org.ow2.asbarak</argument>
+					</excludeGroups>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.podcasti</groupId>
+			<artifactId>logic</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+</project>

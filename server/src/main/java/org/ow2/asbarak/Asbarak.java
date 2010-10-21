@@ -19,13 +19,12 @@ public class Asbarak {
 	AsbarakRegistryService asbarakRegistry;
 	ApplicationRegistryService applicationRegistry;
 		
-	public Asbarak() throws FrascatiException, NoSuchInterfaceException, IllegalBindingException, IllegalLifeCycleException{
+	public Asbarak(FraSCAti fraSCAti) throws FrascatiException, NoSuchInterfaceException, IllegalBindingException, IllegalLifeCycleException{
 		
-		// we start FraSCAti
-		this.frascati = FraSCAti.newFraSCAti();
+		this.frascati = fraSCAti;
 		
 		// we start the Asbarak composite
-		Component asbarak = frascati.getComposite("src/main/resources/asbarak");
+		Component asbarak = frascati.getComposite("asbarak");
 		
 		// we retrieve the deployer
 		this.deployer = frascati.getService(asbarak, "deployer-service", AsbarakDeployerService.class);
