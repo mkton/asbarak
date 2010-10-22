@@ -1,4 +1,4 @@
-package org.ow2.asbarak.audio;
+package org.ow2.asbarak.os.apps;
 
 import java.net.URI;
 
