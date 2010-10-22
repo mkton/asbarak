@@ -71,15 +71,11 @@
       <interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>
     </service>
     
-    <reference name="os-command-vlc">
-      <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
-    </reference>    
     <reference name="os-command-alsamixer">
       <interface.java interface="org.ow2.asbarak.os.CommandProcessorService"/>
     </reference>    
   </component>
   
-  <wire source="audio-manager/os-command-vlc" target="os-command-component/os-command-service"/>
   <wire source="audio-manager/os-command-alsamixer" target="os-command-component/os-command-service"/>
   
   <!-- Asbarak Registry wires -->

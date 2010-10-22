@@ -38,13 +38,21 @@
 			<artifactId>frascati-binding-rest</artifactId>
 			<version>${frascati.version}</version>
 		</dependency>
-		
+
 		<!-- OW2 FraSCAti RMI Binding. -->
 		<dependency>
 			<groupId>org.ow2.frascati</groupId>
 			<artifactId>frascati-binding-rmi</artifactId>
 			<version>${frascati.version}</version>
 		</dependency>
+
+		<!-- GStreamer for Java -->
+		<dependency>
+			<groupId>com.googlecode.gstreamer-java</groupId>
+			<artifactId>gstreamer-java</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<profiles>
