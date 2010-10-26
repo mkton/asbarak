@@ -12,8 +12,7 @@ import org.junit.Test;
 import org.objectweb.fractal.api.Component;
 import org.objectweb.fractal.api.NoSuchInterfaceException;
 import org.ow2.frascati.FraSCAti;
-import org.ow2.frascati.tinfi.control.content.SCAContentController;
-import org.ow2.frascati.tinfi.control.property.SCAPropertyController;
+import org.ow2.frascati.tinfi.api.control.SCAPropertyControllerFcItf;
 import org.ow2.frascati.util.FrascatiException;
 import org.ow2.podcasti.archive.PodcastiArchiveImpl;
 import org.ow2.podcasti.model.Archive;
@@ -45,7 +44,7 @@ public class Podcastest {
 	    this.ui = frascati.getService(composite, "podcasti-ui", PodcastiUIService.class);
 	    
 		// we set DB location property for testing
-	    SCAPropertyController c = (SCAPropertyController) composite.getFcInterface(SCAPropertyController.NAME);
+	    SCAPropertyControllerFcItf c = (SCAPropertyControllerFcItf) composite.getFcInterface(SCAPropertyControllerFcItf.NAME);
 	    this.archivesPath = (String) c.getValue("archive-path-composite");
 	    	    
 	    System.out.println(archivesPath);

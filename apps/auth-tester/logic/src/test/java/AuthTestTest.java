@@ -2,9 +2,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.objectweb.fractal.api.Component;
-import org.ow2.asbarak.apps.authtest.AsbarakSession;
 import org.ow2.asbarak.apps.authtest.AuthManagerService;
 import org.ow2.asbarak.apps.authtest.AuthTestAdaptorService;
+import org.ow2.asbarak.auth.session.AsbarakSession;
 import org.ow2.frascati.FraSCAti;
 
 public class AuthTestTest {

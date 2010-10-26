@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <composite xmlns="http://www.osoa.org/xmlns/sca/1.0" 
 	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" 
-	xmlns:res="src/main/resources"
 	name="asbarak">
 
   <service name="audio-player-service" promote="audio-manager/audio-player-service" />
@@ -65,7 +64,7 @@
   </component>
   
   <component name="audio-manager">
-    <implementation.composite name="res:audio-manager-bis.composite"/>
+    <implementation.composite name="audio-manager-bis"/>
     
     <service name="audio-player-service">
       <interface.java interface="org.ow2.asbarak.audio.AudioPlayerItfService"/>

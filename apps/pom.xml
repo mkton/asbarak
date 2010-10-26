@@ -1,30 +1,37 @@
 <?xml version="1.0"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation=
- "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ow2.asbarak.apps</groupId>
-  <artifactId>asbarak-apps-parent</artifactId>
-  <packaging>pom</packaging>
+	<groupId>org.ow2.asbarak.apps</groupId>
+	<artifactId>asbarak-apps-parent</artifactId>
+	<packaging>pom</packaging>
 
-  <parent>
-    <groupId>org.ow2.asbarak</groupId>
-    <artifactId>asbarak-parent</artifactId>    
+	<parent>
+		<groupId>org.ow2.asbarak</groupId>
+		<artifactId>asbarak-parent</artifactId>
+		<version>0.0.2-SNAPSHOT</version>
+	</parent>
+
+	<name>AsbaraK applications</name>
+	<description>Applications designed for fit with AsbaraK system</description>
+
 	<version>0.0.2-SNAPSHOT</version>
-  </parent>
 
-  <name>AsbaraK applications</name>
-  <description>Applications designed for fit with AsbaraK system</description>
+	<modules>
+		<module>podcasti-parent</module>
+		<module>scaudio-parent</module>
+		<module>bookmarks-parent</module>
+	</modules>
 
-  <version>0.0.2-SNAPSHOT</version>
-   
-  <modules>
-    <module>podcasti-parent</module>
-    <module>scaudio-parent</module>
-  </modules>
-  
-  	
+	<dependencies>
+		<dependency>
+			<groupId>org.ow2.asbarak.server</groupId>
+			<artifactId>asbarak-server</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+
 </project>

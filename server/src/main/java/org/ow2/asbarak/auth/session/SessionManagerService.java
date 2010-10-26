@@ -1,10 +1,9 @@
-package org.ow2.asbarak.apps.authtest;
+package org.ow2.asbarak.auth.session;
 
 import org.osoa.sca.annotations.Service;
-import org.ow2.asbarak.auth.session.AsbarakSession;
 
 @Service
-public interface AuthManagerService {
+public interface SessionManagerService {
 
 	public AsbarakSession createSession(String login, String password);
 	

@@ -30,13 +30,8 @@ public class AsbarakBootstrap {
 			for (String arg : args){
 				deployer.deploy(arg);
 			}
-			
-			//deployer.deploy("src/test/resources/composite-test");
-			
+						
 			System.out.println("Asbarak is now running");
-			
-			//Thread.yield();
-			//Thread.currentThread().wait();
 			
 		} catch (FrascatiException e) {
 			e.printStackTrace();

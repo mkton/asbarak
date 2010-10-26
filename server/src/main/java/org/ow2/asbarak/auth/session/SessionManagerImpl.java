@@ -1,25 +1,26 @@
-package org.ow2.asbarak.apps.authtest;
+package org.ow2.asbarak.auth.session;
 
 import java.util.ArrayList;
 
 import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
-import org.ow2.asbarak.auth.session.AsbarakSession;
+import org.ow2.asbarak.user.AsbarakUsersImpl.AsbarakUser;
+import org.ow2.asbarak.user.AsbarakUsersService;
 
 @Scope("COMPOSITE")
-public class AuthManagerImpl implements AuthManagerService {
+public class SessionManagerImpl implements SessionManagerService {
 	
-	@Reference(name="user-reference")
-	AuthTestUIService ui;
+	@Reference(name="users-reference")
+	AsbarakUsersService users;
 	
 	private ArrayList<AsbarakSession> sessions = new ArrayList<AsbarakSession>();
 	
 	public AsbarakSession createSession(String login, String password) {
 		
 		// we test login.pwd
-		Integer userId = ui.checkIdentity(login, password);
+		AsbarakUser user  = users.getUser(login, password);
 		
-		if ( userId != null) {
+		if ( user != null) {
 		
 			int token = login.toString().hashCode();
 			AsbarakSession newS = new AsbarakSession(userId, token);

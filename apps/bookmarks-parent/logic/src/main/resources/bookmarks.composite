@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0"
+  xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1"
+  name="bookmarks">
+	  	
+  <service name="bookmarks-service" promote="bookmarks-component/bookmarks-core-service"/>
+
+  <component name="bookmarks-component" require="auth-intent">  
+    <implementation.java class="org.ow2.asbarak.apps.bookmarks.BookmarksImpl"/>
+    
+    <service name="bookmarks-core-service">
+      <interface.java interface="org.ow2.asbarak.apps.bookmarks.BookmarksService"/>
+    </service>             
+  </component>
+  
+</composite>

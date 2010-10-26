@@ -8,6 +8,7 @@ import javax.security.auth.Subject;
 import org.osoa.sca.annotations.Init;
 import org.osoa.sca.annotations.Reference;
 import org.osoa.sca.annotations.Scope;
+import org.ow2.asbarak.auth.session.AsbarakSession;
 import org.ow2.frascati.tinfi.SecuritySubjectManager;
 
 @Scope("COMPOSITE")

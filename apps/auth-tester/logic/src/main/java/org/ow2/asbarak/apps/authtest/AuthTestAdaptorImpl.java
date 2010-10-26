@@ -18,13 +18,16 @@ public class AuthTestAdaptorImpl implements AuthTestAdaptorService {
 	public String getUserInformations(Integer id, long token) {
 
 		HashSet<Principal> principals = new HashSet<Principal>();
+		HashSet<String> pubCredentials = new HashSet<String>();
+		HashSet<String> privCredentials = new HashSet<String>();
+						
 		principals.add( new TokenPrincipal(token) );
 		
 		Subject subject = new Subject(
 				true,
 				principals,
-				null,
-				null);
+				pubCredentials,
+				privCredentials);
 		
 		SecuritySubjectManager.get().setSecuritySubject(subject);
 		

@@ -20,7 +20,7 @@ public class GStreamerMain {
 		
 		GStreamerService service = new GStreamerImpl();
 		
-		URI uri2 = new URI("http://wefunk.alessandromotta.com/WeFunk_Show_619_2010-09-10.mp3");
+		URI uri2 = new URI("http://mp3.live.tv-radio.com/franceinter/all/franceinterhautdebit.mp3");
 		
 		service.play(uri2);
 		

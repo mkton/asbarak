@@ -7,8 +7,6 @@ import org.objectweb.fractal.api.control.IllegalBindingException;
 import org.objectweb.fractal.api.control.IllegalLifeCycleException;
 import org.objectweb.fractal.api.control.LifeCycleController;
 import org.ow2.asbarak.deployer.AsbarakDeployerService;
-import org.ow2.asbarak.registry.ApplicationRegistryService;
-import org.ow2.asbarak.registry.AsbarakRegistryService;
 import org.ow2.frascati.FraSCAti;
 import org.ow2.frascati.util.FrascatiException;
 
@@ -16,8 +14,9 @@ public class Asbarak {
 	
 	FraSCAti frascati;
 	AsbarakDeployerService deployer;
-	AsbarakRegistryService asbarakRegistry;
-	ApplicationRegistryService applicationRegistry;
+	
+	//AsbarakRegistryService asbarakRegistry;
+	//ApplicationRegistryService applicationRegistry;
 		
 	public Asbarak(FraSCAti fraSCAti) throws FrascatiException, NoSuchInterfaceException, IllegalBindingException, IllegalLifeCycleException{
 		
@@ -28,7 +27,10 @@ public class Asbarak {
 		
 		// we retrieve the deployer
 		this.deployer = frascati.getService(asbarak, "deployer-service", AsbarakDeployerService.class);
-				
+
+		// we retrieve the deployer
+		//this.deployer = frascati.getService(asbarak, "deployer-service", AsbarakDeployerService.class);
+		
 		// and we set the deployer reference to the FraSCAti composite manager
 		LifeCycleController lc = (LifeCycleController) asbarak.getFcInterface("lifecycle-controller");
 		lc.stopFc();
@@ -46,4 +48,10 @@ public class Asbarak {
 	public AsbarakDeployerService getDeployer(){
 		return this.deployer;
 	}
+	
+	/*
+	public ApplicationRegistryService getApplicationRegistry(){
+		return this.applicationRegistry;
+	}
+	*/
 }

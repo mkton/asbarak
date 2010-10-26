@@ -43,6 +43,11 @@ public class PodcastiUIImpl implements PodcastiUIService {
 	private Date lastUpdate;
 	// updates period (half a day)
 	public static final long period = 43200000;
+	
+	public PodcastiUIImpl(){
+		System.setProperty("http.proxyHost", "g-proxy");
+		System.setProperty("http.proxyPort", "3128");
+	}
 
 	public HashSet<Feed> getFeeds() {
 		return model.getFeeds();

@@ -30,7 +30,7 @@
 		</reference>
 	</component>
 
-	<component name="user-component">
+	<component name="user-component" requires="auth-intent">
 		<implementation.java class="org.ow2.asbarak.apps.authtest.AuthTestUIImpl" />
 
 		<service name="user-service">
