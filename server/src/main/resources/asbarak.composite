@@ -11,8 +11,31 @@
   </service>
   <service name="asbarak-registry-service" promote="asbarak-registry/asbarak-registry-service"/>
   <service name="application-registry-service" promote="application-registry/application-registry-service"/>
+  <service name="authentication-service" promote="authentication-manager/authentication-service">
+  	<!-- <frascati:binding.rest uri="http://localhost:9001/JSON-RPC/Auth"/>  -->
+  </service>  
   
   <reference name="composite-manager" promote="deployer/composite-manager-reference"/>
+  
+  <component name="users-component">
+  	<implementation.java class="org.ow2.asbarak.user.AsbarakUsersImpl"/>
+  	
+  	<service name="users-service">
+  		<interface.java interface="org.ow2.asbarak.user.AsbarakUsersService"/>
+  	</service>  	
+  </component>
+  
+  <component name="authentication-manager">
+  	<implementation.java class="org.ow2.asbarak.auth.AsbarakAuthenticationImpl"/>
+  	
+  	<service name="authentication-service">
+  		<interface.java interface="org.ow2.asbarak.auth.AsbarakAuthenticationService"/>	
+  	</service>
+  	
+  	<reference name="users-reference">
+  		<interface.java interface="org.ow2.asbarak.user.AsbarakUsersService"/>
+  	</reference>
+  </component>
   
   <component name="asbarak-registry">
   	<implementation.java class="org.ow2.asbarak.registry.AsbarakRegistryImpl"/>
@@ -76,6 +99,9 @@
   </component>
   
   <wire source="audio-manager/os-command-alsamixer" target="os-command-component/os-command-service"/>
+  
+  <!-- Asbarak Auth wires -->
+  <wire source="authentication-manager/users-reference" target="users-component/users-service"/>
   
   <!-- Asbarak Registry wires -->
   <wire source="asbarak-registry/os-command-reference" target="os-command-component/os-command-service"/>

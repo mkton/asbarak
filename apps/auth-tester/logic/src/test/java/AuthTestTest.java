@@ -28,8 +28,8 @@ public class AuthTestTest {
 	@Test
 	public void testFlow(){
 		// we create 2 sessions
-		AsbarakSession sessionChuck = authManager.createSession("chuck", "pwd");
-		AsbarakSession sessionHomer = authManager.createSession("homer", "pwd");
+		AsbarakSession sessionChuck = authManager.createSession("pim", "pwd");
+		AsbarakSession sessionHomer = authManager.createSession("pam", "pwd");
 		
 		// then we try to call ui with a fake token
 		String info = authTest.getUserInformations(sessionChuck.getUserId(), 0);

@@ -5,7 +5,7 @@
 	  	
   <service name="bookmarks-service" promote="bookmarks-component/bookmarks-core-service"/>
 
-  <component name="bookmarks-component" require="auth-intent">  
+  <component name="bookmarks-component" requires="auth-intent">  
     <implementation.java class="org.ow2.asbarak.apps.bookmarks.BookmarksImpl"/>
     
     <service name="bookmarks-core-service">

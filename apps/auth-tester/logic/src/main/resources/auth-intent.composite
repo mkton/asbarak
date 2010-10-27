@@ -6,7 +6,7 @@
 	
 	<component name="auth-intent-component">
 		<implementation.java
-			class="org.ow2.asbarak.auth.AuthIntent" />
+			class="org.ow2.asbarak.apps.authtest.AuthIntent" />
 
 		<service name="auth-intent-service">
 			<interface.java interface="org.ow2.frascati.tinfi.api.IntentHandler"/>

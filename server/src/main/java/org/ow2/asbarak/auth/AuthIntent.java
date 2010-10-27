@@ -7,7 +7,6 @@ import org.ow2.frascati.tinfi.api.IntentHandler;
 import org.ow2.frascati.tinfi.api.IntentJoinPoint;
 
 public class AuthIntent implements IntentHandler {
-
 	
 	public Object invoke(IntentJoinPoint ijp) throws Throwable {
 		
