@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AsbarakSession {
 
-	public static final Integer SESSION_VALIDITY = 3600000;
+	private Integer sessionValidity;
 	private Integer userId;
 	private long token;
 	private Date creationTime;
@@ -17,15 +17,16 @@ public class AsbarakSession {
 		return this.token;
 	}
 		
-	public AsbarakSession(Integer userId, long token){
+	public AsbarakSession(Integer userId, long token, Integer validity){
 		this.userId = userId;
 		this.token = token;
 		this.creationTime = new Date();
+		this.sessionValidity = validity;
 	}
 	
 	public boolean isStillValid(){
 		long expiration = creationTime.getTime() +
-							AsbarakSession.SESSION_VALIDITY;		
+							this.sessionValidity;		
 		return ( expiration > (new Date()).getTime());
 	}
 }

@@ -16,7 +16,6 @@
 
 	<modules>
 		<module>logic</module>
-		<module>contribution</module>
 	</modules>
 
 	<build>

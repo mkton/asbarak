@@ -5,9 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.objectweb.fractal.api.Component;
-import org.objectweb.fractal.api.control.ContentController;
 import org.ow2.asbarak.Asbarak;
-import org.ow2.asbarak.test.ComponentTestService;
 import org.ow2.frascati.FraSCAti;
 
 public class GeneralTest {

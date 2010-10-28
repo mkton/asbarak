@@ -3,6 +3,8 @@
 	xmlns:frascati="http://frascati.ow2.org/xmlns/sca/1.1" name="auth-intent">
 
 	<service name="intent" promote="auth-intent-component/auth-intent-service" />
+
+	<reference name="session-reference" promote="auth-intent-component/session-reference"/>
 	
 	<component name="auth-intent-component">
 		<implementation.java
@@ -11,6 +13,10 @@
 		<service name="auth-intent-service">
 			<interface.java interface="org.ow2.frascati.tinfi.api.IntentHandler"/>
 		</service>
+		
+		<reference name="session-reference">
+		  	<interface.java interface="org.ow2.asbarak.auth.session.SessionManagerService"/>	
+		</reference>
 	</component>
 
 </composite>

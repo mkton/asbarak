@@ -19,7 +19,7 @@ public class BookmarksImpl implements BookmarksService {
 	public HashMap<Integer, HashSet<String>> map;
 	
 	/**
-	 * Temp
+	 * Temp, we're waiting for database management
 	 */
 	@Init
 	public void initMap(){

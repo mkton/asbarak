@@ -2,34 +2,28 @@ package org.ow2.asbarak.auth;
 
 import javax.security.auth.Subject;
 
-import org.ow2.frascati.tinfi.SecuritySubjectManager;
-import org.ow2.frascati.tinfi.api.IntentHandler;
-import org.ow2.frascati.tinfi.api.IntentJoinPoint;
+import org.osoa.sca.annotations.Reference;
+import org.ow2.asbarak.auth.frascati.AuthenticationIntent;
+import org.ow2.asbarak.auth.session.SessionManagerService;
 
-public class AuthIntent implements IntentHandler {
+public class AuthIntent extends AuthenticationIntent{
 	
-	public Object invoke(IntentJoinPoint ijp) throws Throwable {
+	@Reference(name="session-reference")
+	SessionManagerService sessionManager;
+	
+	@Override
+	public boolean isAuthenticated(Subject subject) { 
 		
-		// remember @Context
-		// security provider / security controller / security subject
-		//ContentController cc;
-		//ComponentContext cc;
-		//ijp.getComponent().  getRequestContext().getSecuritySubject();
+		AsbarakPublicCredential pubCredential = subject
+			.getPublicCredentials(AsbarakPublicCredential.class).iterator().next();
 		
-		
-		Subject subject = SecuritySubjectManager.get().getSecuritySubject();
-		if (subject!=null) {
-			AsbarakUserPrincipal uP = subject
-				.getPrincipals(AsbarakUserPrincipal.class).iterator().next();
-		
-			// here we should verify more informations like rights
-			if (uP != null){
-				return ijp.proceed();
-			}
-		}
-		
-		//TODO raise exception
-		return null;
+		// we assert that the session is still valid
+		return (sessionManager.getSession(pubCredential.getToken()).isStillValid());
+
+		// here we should verify more informations like rights (aka habilitations)
+		//AsbarakUserPrincipal uP = subject
+		//	.getPrincipals(AsbarakUserPrincipal.class).iterator().next();
+
 	}
 	
 }

@@ -14,6 +14,7 @@
   <service name="authentication-service" promote="authentication-manager/authentication-service">
   	<!-- <frascati:binding.rest uri="http://localhost:9001/JSON-RPC/Auth"/>  -->
   </service>  
+  <service name="session-service" promote="authentication-manager/session-service"/>
   
   <reference name="composite-manager" promote="deployer/composite-manager-reference"/>
   
@@ -28,8 +29,14 @@
   <component name="authentication-manager">
   	<implementation.java class="org.ow2.asbarak.auth.AsbarakAuthenticationImpl"/>
   	
+  	<!-- by default, session validity is set to 10 minutes -->
+  	<property name="session-validity">600000</property>
+  	
   	<service name="authentication-service">
   		<interface.java interface="org.ow2.asbarak.auth.AsbarakAuthenticationService"/>	
+  	</service>
+  	<service name="session-service">
+  		<interface.java interface="org.ow2.asbarak.auth.session.SessionManagerService"/>	
   	</service>
   	
   	<reference name="users-reference">
