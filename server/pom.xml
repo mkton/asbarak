@@ -59,6 +59,13 @@
 			<artifactId>frascati-authentication</artifactId>
 			<version>${frascati.version}</version>
 		</dependency>
+		
+		<!-- Default applications -->
+		<dependency>
+			<groupId>org.ow2.podcasti</groupId>
+			<artifactId>logic</artifactId>
+			<version>${asbarak.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -77,6 +84,7 @@
 								<argument>-cp</argument>
 								<classpath />
 								<argument>org.ow2.asbarak.bootstrap.AsbarakBootstrap</argument>
+								<argument>podcasti-core</argument>
 							</arguments>
 						</configuration>
 					</plugin>

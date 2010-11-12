@@ -91,6 +91,7 @@
 
 	<properties>
 		<frascati.version>1.4-SNAPSHOT</frascati.version>
+		<asbarak.version>0.0.2-SNAPSHOT</asbarak.version>
 	</properties>
 
 </project>
