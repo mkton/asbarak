@@ -59,7 +59,8 @@ public class AsbarakAuthenticationImpl implements AsbarakAuthenticationService,
 		AsbarakUser user = users.getUser(session.getUserId());
 
 		HashSet<Principal> principals = new HashSet<Principal>();
-		HashSet<AsbarakPublicCredential> pubCredentials = new HashSet<AsbarakPublicCredential>();
+		HashSet<AsbarakPublicCredential> pubCredentials = 
+			new HashSet<AsbarakPublicCredential>();
 		HashSet<String> privCredentials = new HashSet<String>();
 
 		// we create principal with the user informations

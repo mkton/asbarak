@@ -52,6 +52,13 @@
 			<artifactId>gstreamer-java</artifactId>
 			<version>1.4</version>
 		</dependency>
+		
+		<!-- FraSCAti authentication intent -->
+		<dependency>
+			<groupId>org.ow2.frascati.intent</groupId>
+			<artifactId>frascati-authentication</artifactId>
+			<version>${frascati.version}</version>
+		</dependency>
 
 	</dependencies>
 

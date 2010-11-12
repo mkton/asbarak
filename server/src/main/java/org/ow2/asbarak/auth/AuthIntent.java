@@ -3,10 +3,10 @@ package org.ow2.asbarak.auth;
 import javax.security.auth.Subject;
 
 import org.osoa.sca.annotations.Reference;
-import org.ow2.asbarak.auth.frascati.AuthenticationIntent;
 import org.ow2.asbarak.auth.session.SessionManagerService;
+import org.ow2.frascati.intent.authentication.AbstractAuthenticationIntent;
 
-public class AuthIntent extends AuthenticationIntent{
+public class AuthIntent extends AbstractAuthenticationIntent {
 	
 	@Reference(name="session-reference")
 	SessionManagerService sessionManager;

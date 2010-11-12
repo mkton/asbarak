@@ -18,7 +18,6 @@ import org.ow2.asbarak.apps.bookmarks.BookmarksService;
 import org.ow2.asbarak.auth.AsbarakAuthenticationService;
 import org.ow2.frascati.FraSCAti;
 import org.ow2.frascati.tinfi.SecuritySubjectManager;
-import org.ow2.frascati.tinfi.api.control.SCAContentController;
 import org.ow2.frascati.tinfi.api.control.SCAPropertyController;
 
 public class BookmarksTest {
@@ -43,19 +42,18 @@ public class BookmarksTest {
 	    // and the authentication service
 	    this.asbarakComponent = frascati.getComposite("asbarak");
 	    this.auth = frascati.getService(this.asbarakComponent, "authentication-service", AsbarakAuthenticationService.class);
-	    	    
-	}
-	
+	    
+	}	
 	
 	@Test
 	public void checkPwd() {
 
 		// we try to use a fake password
 		try {
-			auth.authenticate("pim", "blabla");
+			auth.authenticate("pim", "blabla"); 
 			fail();
 		} catch (Exception e) {
-			assertTrue(e.getCause().getClass().equals(AuthenticationException.class));
+			assertTrue(e.getClass().equals(AuthenticationException.class));
 		}		
 		
 		// now we log in

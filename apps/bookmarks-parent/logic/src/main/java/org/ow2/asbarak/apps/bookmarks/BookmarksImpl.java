@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import org.oasisopen.sca.ComponentContext;
+import org.osoa.sca.annotations.Authentication;
 import org.osoa.sca.annotations.Context;
 import org.osoa.sca.annotations.Init;
 import org.osoa.sca.annotations.Scope;
@@ -11,6 +12,7 @@ import org.ow2.asbarak.auth.AsbarakUserPrincipal;
 import org.ow2.frascati.tinfi.SecuritySubjectManager;
 
 @Scope("COMPOSITE")
+@Authentication
 public class BookmarksImpl implements BookmarksService {
 
 	@Context
