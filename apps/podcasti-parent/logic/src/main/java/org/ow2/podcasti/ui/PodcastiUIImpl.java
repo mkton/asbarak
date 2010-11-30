@@ -104,16 +104,23 @@ public class PodcastiUIImpl implements PodcastiUIService {
 		// maybe we should update it ?
 		Date now = new Date();
 
-		if (lastUpdate == null)
-			// init
-			lastUpdate = now;
-		// else if we exceed the update limit
-		else if (!((now.getTime() - lastUpdate.getTime()) > PodcastiUIImpl.period))
-			return;
-
+		if (lastUpdate != null) {
+			
+			long diff = now.getTime() - lastUpdate.getTime();
+			
+			// if limit is not exceeded, we get out 
+			if ( ! (diff > PodcastiUIImpl.period))
+				return;
+			
+		}
+			
+		// if we're still there, we need to update
 		for (Feed feed : this.getFeeds()) {
 			this.updateFeed(feed.id);
 		}
+		
+		// now is the last update 
+		lastUpdate = now;
 	}
 
 	public void updateFeed(Integer feedId) {
