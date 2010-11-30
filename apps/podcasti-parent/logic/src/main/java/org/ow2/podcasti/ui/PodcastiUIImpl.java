@@ -38,16 +38,13 @@ public class PodcastiUIImpl implements PodcastiUIService {
 	AudioPlayerItfService scaudio;
 
 	// we save feed construction, in order to not rebuilt it each time
-	private HashMap<Integer, LinkedHashSet<Episode>> episodes = new HashMap<Integer, LinkedHashSet<Episode>>();
+	private HashMap<Integer, LinkedHashSet<Episode>> episodes = 
+		new HashMap<Integer, LinkedHashSet<Episode>>();
 
 	private Date lastUpdate;
+	
 	// updates period (half a day)
 	public static final long period = 43200000;
-	
-	public PodcastiUIImpl(){
-		System.setProperty("http.proxyHost", "g-proxy");
-		System.setProperty("http.proxyPort", "3128");
-	}
 
 	public HashSet<Feed> getFeeds() {
 		return model.getFeeds();
